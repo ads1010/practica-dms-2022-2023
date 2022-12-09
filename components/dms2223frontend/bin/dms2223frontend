@@ -1,0 +1,161 @@
+#!/usr/bin/env python3
+
+from flask import Flask
+import inspect
+import os
+from typing import Dict
+import dms2223frontend
+from dms2223frontend.data.config import FrontendConfiguration
+from dms2223frontend.data.rest import AuthService
+from dms2223frontend.data.rest.backendservice import BackendService
+from dms2223frontend.presentation.web import \
+    AdminEndpoints, CommonEndpoints, SessionEndpoints, DiscussionEndpoints, ModeratorEndpoints
+
+cfg: FrontendConfiguration = FrontendConfiguration()
+cfg.load_from_file(cfg.default_config_file())
+auth_service_cfg: Dict = cfg.get_auth_service()
+auth_service: AuthService = AuthService(
+    auth_service_cfg['host'], auth_service_cfg['port'],
+    apikey_header='X-ApiKey-Auth',
+    apikey_secret=auth_service_cfg['apikey_secret']
+)
+backend_service_cfg: Dict = cfg.get_backend_service()
+backend_service: BackendService = BackendService(
+    backend_service_cfg['host'], backend_service_cfg['port'],
+    apikey_header='X-ApiKey-Backend',
+    apikey_secret=backend_service_cfg['apikey_secret']
+)
+
+app = Flask(
+    __name__,
+    static_folder=os.path.dirname(
+        inspect.getfile(dms2223frontend)) + '/static',
+    template_folder=os.path.dirname(
+        inspect.getfile(dms2223frontend)) + '/templates'
+)
+app.secret_key = bytes(cfg.get_app_secret_key(), 'ascii')
+
+
+@app.route("/login", methods=['GET'])
+def get_login():
+    return SessionEndpoints.get_login(auth_service)
+
+@app.route("/login", methods=['POST'])
+def post_login():
+    return SessionEndpoints.post_login(auth_service)
+
+@app.route("/logout", methods=['GET'])
+def get_logout():
+    return SessionEndpoints.get_logout()
+
+@app.route("/home", methods=['GET'])
+def get_home():
+    return CommonEndpoints.get_home(auth_service)
+
+@app.route("/discussion", methods=['GET'])
+def get_discussion():
+    return DiscussionEndpoints.get_discussion(auth_service, backend_service)
+
+@app.route("/discussion/discussions", methods=['GET'])
+def get_discussion_discussions():
+    return DiscussionEndpoints.get_discussion_discussions(auth_service, backend_service)
+
+@app.route("/discussion/discussions/new", methods=['GET'])
+def get_discussion_discussions_new():
+    return DiscussionEndpoints.get_discussion_discussions_new(auth_service, backend_service)
+
+@app.route("/discussion/discussions/new", methods=['POST'])
+def post_discussion_discussions_new():
+    return DiscussionEndpoints.post_discussion_discussions_new(auth_service, backend_service)
+
+@app.route("/discussion/discussions/report", methods=['GET'])
+def get_discussion_discussions_report():
+    return DiscussionEndpoints.get_discussion_discussions_report(auth_service, backend_service)
+
+@app.route("/discussion/discussions/report", methods=['POST'])
+def post_discussion_discussions_report():
+    return DiscussionEndpoints.post_discussion_discussions_report(auth_service, backend_service)
+
+@app.route("/discussion/discussions/view", methods=['GET'])
+def get_discussion_discussions_view():
+    return DiscussionEndpoints.get_discussion_discussions_view(auth_service, backend_service)
+
+@app.route("/discussion/discussions/view", methods=['POST'])
+def post_discussion_discussions_view():
+    return DiscussionEndpoints.post_discussion_discussions_view(auth_service, backend_service)
+
+@app.route("/discussion/discussions/answer", methods=['GET'])
+def get_discussion_discussions_answer():
+    return DiscussionEndpoints.get_discussion_discussions_answer(auth_service, backend_service)
+
+@app.route("/discussion/discussions/answer", methods=['POST'])
+def post_discussion_discussions_answer():
+    return DiscussionEndpoints.post_discussion_discussions_answer(auth_service, backend_service)
+
+@app.route("/discussion/discussions/comment", methods=['GET'])
+def get_discussion_discussions_comment():
+    return DiscussionEndpoints.get_discussion_discussions_comment(auth_service, backend_service)
+
+@app.route("/discussion/discussions/comment", methods=['POST'])
+def post_discussion_discussions_comment():
+    return DiscussionEndpoints.post_discussion_discussions_comment(auth_service, backend_service)
+
+@app.route("/moderator", methods=['GET'])
+def get_moderator():
+    return ModeratorEndpoints.get_moderator(auth_service)
+
+@app.route("/moderator/reports", methods=['GET'])
+def get_moderator_reports():
+    return ModeratorEndpoints.get_moderator_reports(auth_service)
+
+@app.route("/moderator/moderator/view", methods=['GET'])
+def get_report_view():
+    return ModeratorEndpoints.get_report_view(auth_service)
+
+@app.route("/moderator/moderator/resolution", methods=['GET'])
+def get_moderator_resolution_report():
+    return ModeratorEndpoints.get_moderator_resolution_report(auth_service)
+
+@app.route("/moderator/discussions", methods=['GET'])
+def get_moderator_discussions():
+    return ModeratorEndpoints.get_moderator_discussions(auth_service,backend_service)
+
+@app.route("/moderator/discussions/view", methods=['GET'])
+def get_discussions_view():
+    return ModeratorEndpoints.get_discussions_view(auth_service)
+
+@app.route("/moderator/moderator/view", methods=['GET'])
+def get_moderator_moderator_view():
+    return ModeratorEndpoints.get_moderator_moderator_view(auth_service)
+
+
+@app.route("/admin", methods=['GET'])
+def get_admin():
+    return AdminEndpoints.get_admin(auth_service)
+
+@app.route("/admin/users", methods=['GET'])
+def get_admin_users():
+    return AdminEndpoints.get_admin_users(auth_service)
+
+@app.route("/admin/users/new", methods=['GET'])
+def get_admin_users_new():
+    return AdminEndpoints.get_admin_users_new(auth_service)
+
+@app.route("/admin/users/new", methods=['POST'])
+def post_admin_users_new():
+    return AdminEndpoints.post_admin_users_new(auth_service)
+
+@app.route("/admin/users/edit", methods=['GET'])
+def get_admin_users_edit():
+    return AdminEndpoints.get_admin_users_edit(auth_service)
+
+@app.route("/admin/users/edit", methods=['POST'])
+def post_admin_users_edit():
+    return AdminEndpoints.post_admin_users_edit(auth_service)
+
+if __name__ == '__main__':
+    app.run(
+        host=cfg.get_service_host(),
+        port=cfg.get_service_port(),
+        debug=cfg.get_debug_flag()
+    )
