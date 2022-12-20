@@ -4,24 +4,31 @@
 {% block moderatorcontent %}
 
 
+<form action="/discussion/discussions/view" method="post">
+    <input type="hidden" name="redirect_to" value="{{ redirect_to }}" />
     
-<dl>
-    <h3><dt> {{ title }}</dt></h3> <h6>@Usuario 15/11/2022 20:00</h6>
-    
-    <textarea name="content" rows="10" cols="100" readonly> Este es el contenido de la discusión </textarea>
-   
-    <h3><dt>Respuesta</dt></h3> <h6>@Usuario 15/11/2022 20:30</h6>
-    <textarea name="content" rows="10" cols="100" readonly> Esta es la respuesta a la pregunta </textarea>
-    <br>
-    <h3><dt>Comentario</dt></h3> <h6>@Usuario 15/11/2022 20:40</h6>
-    <textarea name="content" rows="10" cols="100" readonly> Este es el comentario de la respuesta </textarea>
-<br>
-
-</dl>
-
-
-
-
-   
+    <dl>
+        <h3><dt>{{ discussion['title'] }}</dt></h3>
+        <textarea name="content" rows="10" cols="100"> {{ discussion['content'] }} </textarea>
+        <p class="alignleft">
+            
+            {%if discussion['answered'] == 1 %}
+                {% for answer in answers %}
+                    <h3><dt>Respuesta</dt></h3>
+                    <textarea name="content" rows="10" cols="100" readonly> {{ answer['content'] }} </textarea>
+                              
+                    {%for comment in comments%}
+                        {%if answer['id'] == comment['answerid']%}
+                            <h3><dt>Comentario</dt></h3>
+                            <textarea name="content" rows="10" cols="100" readonly>{{ comment['content'] }}</textarea>
+                            <p class="alignleft"></p>
+                        {%endif%}
+                    {%endfor%}
+                {%endfor%}
+            {%endif%}
+        </p>     
+    </dl> 
+    <p class="alignright">{{ button('redbg', redirect_to, 'Atrás') }}</p>
+</form>
 {% endblock %}
 

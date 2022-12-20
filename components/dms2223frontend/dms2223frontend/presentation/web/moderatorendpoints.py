@@ -48,7 +48,7 @@ class ModeratorEndpoints():
         if Role.MODERATION.name not in session['roles']:
             return redirect(url_for('get_home'))
         name = session['user']
-        
+
         return render_template('moderator/reports.html', name=name, roles=session['roles'], reports=WebQuestion.list_reports(backend_service),
                                                                                             reportsanswer = WebQuestion.list_reports_answer(backend_service,),
                                                                                             reportscomment = WebQuestion.list_reports_comments(backend_service)
