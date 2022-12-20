@@ -25,7 +25,7 @@ def comment(body: Dict, id: int) -> Tuple[Union[Dict, str], Optional[int]]:
     with current_app.app_context():
         try:
             comment = CommentsServices.comment(
-                id, body['content'], current_app.db
+                body['discussionid'], id, body['content'], current_app.db
             )
         except ValueError:
             return ('A mandatory argument is missing', HTTPStatus.BAD_REQUEST.value)
@@ -34,6 +34,29 @@ def comment(body: Dict, id: int) -> Tuple[Union[Dict, str], Optional[int]]:
         except OperationError:
             return ('The user with the given username can not create a discussion', HTTPStatus.FORBIDDEN.value)
     return (comment, HTTPStatus.OK.value)
+
+
+def list_all_for_discussion(id: int) -> Tuple[Union[List[Dict], str], Optional[int]]:
+    """Lists the comments of an answer if the requestor has the discussion role.
+
+    Args:
+        - answerId (int): Answer id.
+        - token_info (Dict): A dictionary of information provided by the security schema handlers.
+
+    Returns:
+        - Tuple[Union[List[Dict], str], Optional[int]]: On success, a tuple with the dictionary of the
+          new discussion data and a code 200 OK. On error, a description message and code:
+            - 400 BAD REQUEST when a mandatory argument is missing.
+    """
+    with current_app.app_context():
+        try:
+            comments: List[Dict] = CommentsServices.list_all_for_discussion(
+                id, current_app.db
+            )
+        except ValueError:
+            return ('A mandatory argument is missing', HTTPStatus.BAD_REQUEST.value)
+
+    return (comments, HTTPStatus.OK.value)
 
 
 def list_all_for_answer(id: int) -> Tuple[Union[List[Dict], str], Optional[int]]:
@@ -58,7 +81,7 @@ def list_all_for_answer(id: int) -> Tuple[Union[List[Dict], str], Optional[int]]
 
     return (comments, HTTPStatus.OK.value)
 
-def get_comment(answerid: int) -> Tuple[Union[Dict, str], Optional[int]]:
+def get_comment(discussionid: int, answerid: int) -> Tuple[Union[Dict, str], Optional[int]]:
     """Obtains the comment of a discussion and user.
 
     Args:
@@ -74,7 +97,7 @@ def get_comment(answerid: int) -> Tuple[Union[Dict, str], Optional[int]]:
     with current_app.app_context():
         try:
             comment: Dict = CommentsServices.get_comment(
-                answerid,current_app.db
+                discussionid, answerid,current_app.db
             )
         except ValueError:
             return ('A mandatory argument is missing', HTTPStatus.BAD_REQUEST.value)

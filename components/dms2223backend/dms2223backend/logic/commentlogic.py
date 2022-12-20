@@ -9,7 +9,7 @@ class CommentLogic():
     """ Class responsible of table-level comments operations.
     """
     @staticmethod
-    def comment(session: Session, answerid: int, content: str) -> Comment:
+    def comment(session: Session, discussionid: int, answerid: int, content: str) -> Comment:
         """ Comment a comment.
 
         Note:
@@ -28,7 +28,7 @@ class CommentLogic():
             - User: The created `Discussion` result.
         """
         try:
-            new_comment: Comment = Comments.comment(session, answerid, content)
+            new_comment: Comment = Comments.comment(session, discussionid, answerid, content)
            
         except Exception as ex:
             raise ex
@@ -48,6 +48,22 @@ class CommentLogic():
         return Comments.list_all(session)
 
     @staticmethod
+    def list_all_for_discussion(discussionid: int, session: Session) -> List[Comment]:
+        """Lists the `answers made to a certain question.
+
+        Args:
+            - session (Session): The session object.
+            - id (int): The question id.
+
+        Raises:
+            - ValueError: If the question id is missing.
+
+        Returns:
+            - List[Answer]: A list of answer registers with the question answers.
+        """
+        return Comments.list_all_for_discussion(session, discussionid)
+
+    @staticmethod
     def list_all_for_answer(answerid: int, session: Session) -> List[Comment]:
         """Lists the `answers made to a certain question.
 
@@ -64,7 +80,7 @@ class CommentLogic():
         return Comments.list_all_for_answer(session, answerid)
 
     @staticmethod
-    def get_comment(session: Session ,answerid: int) -> Comment:
+    def get_comment(session: Session, discussionid: int, answerid: int) -> Comment:
         """Return a answer of a certain question and user.
 
         Args:
@@ -76,7 +92,7 @@ class CommentLogic():
             - Answer: The Answer of the question.
         """
         try:
-            comment: Comment = Comments.get_comment(session, answerid)
+            comment: Comment = Comments.get_comment(session, discussionid, answerid)
         except Exception as ex:
             raise ex
         return comment

@@ -3,14 +3,18 @@
 {% block title %}{% block subtitle %}{% endblock %}Moderator{% endblock %}
 {% block contentheading %}Moderador ver discusiones{% endblock %}
 {% block moderatorcontent %}
+    
     <table class="fillwidth highlightrows">
         <tbody>
             <tr>
-                <th class="alignleft">Título de la discusión</th><th></th>
+                <th class="alignleft">Títulos de discusiones</th><th></th>
             </tr>
-            {% for report in reports %}
+            {% for discussion in discussions %}
                 <tr class="highlightable">
-                    <td class="alignleft">{{ button('grayBg', '/moderator/discussions/view?reporttitle=' + report['title'] + '&redirect_to=/moderator/discussions', report['title']) }}</td>
+                    
+                    <td class="alignleft">{{ button('grayBg', '/moderator/discussions/view?discussionid=' + discussion['id']|string
+                        + '&redirect_to=/moderator/discussions', discussion['title']) }}</td>
+                    
                 </tr>
             {% endfor %}
 
