@@ -251,7 +251,7 @@ class BackendService():
 
 
     
-    def create_comment(self, token: Optional[str], answerid: int, content: str) -> ResponseData:
+    def create_comment(self, token: Optional[str], discussionid: int, answerid: int, content: str) -> ResponseData:
         """ Requests a discussion creation.
 
         Args:
@@ -267,6 +267,7 @@ class BackendService():
         response: requests.Response = requests.post(
             self.__base_url() + f'/answers/{answerid}/comments', 
             json={
+                'discussionid': discussionid,
                 'answerid': answerid,
                 'content': content
             },
@@ -327,7 +328,7 @@ class BackendService():
             response_data.set_content([])
         return response_data
 
-    
+ 
     def list_reports_answer(self, token: Optional[str]) -> ResponseData:
         """ Requests a list of registered questions.
 
