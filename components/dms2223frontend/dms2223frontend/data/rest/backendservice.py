@@ -63,7 +63,7 @@ class BackendService():
             response_data.set_content([])
         return response_data
 
-    def create_report(self, token: Optional[str],id :int,type: int, reason: str) -> ResponseData:
+    def create_report(self, token: Optional[str],id :int, reason: str) -> ResponseData:
         """ Requests a discussion creation.
 
         Args:
@@ -77,7 +77,37 @@ class BackendService():
         """
         response_data: ResponseData = ResponseData()
         response: requests.Response = requests.post(
-            self.__base_url() + '/discussions/{qid}/reports',
+            self.__base_url() + '/comments/{id}/reports',
+            json={
+                'id': id,
+                'reason': reason,
+            },
+            headers={
+                'Authorization': f'Bearer {token}',
+                self.__apikey_header: self.__apikey_secret
+            }
+        )
+        response_data.set_successful(response.ok)
+        if response_data.is_successful():
+            response_data.set_content(response.json())
+        
+        return response_data
+    
+    def create_report_comment(self, token: Optional[str],id :int,type: int, reason: str) -> ResponseData:
+        """ Requests a discussion creation.
+
+        Args:
+            - token (Optional[str]): The discussion session token.
+            - title: A string with the discussion title.
+            - content: A string with the discussion content.
+
+        Returns:
+            - ResponseData: If successful, the contents hold a list of user data dictionaries.
+              Otherwise, the contents will be an empty list.
+        """
+        response_data: ResponseData = ResponseData()
+        response: requests.Response = requests.post(
+            self.__base_url() + '/discussions/{id}/reports',
             json={
                 'id': id,
                 'reason': reason,
@@ -93,7 +123,7 @@ class BackendService():
             response_data.set_content(response.json())
         
         return response_data
-    
+
     def create_discussion(self, token: Optional[str], title: str, content: str) -> ResponseData:
         """ Requests a discussion creation.
 

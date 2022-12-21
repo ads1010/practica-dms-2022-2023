@@ -5,20 +5,18 @@
 {% block moderatorcontent %}
     <table class="fillwidth highlightrows">
         <tbody>
+
             <tr>
-                <th class="alignleft">Reportes de discusiones</th><th></th>
+                <th class="alignleft">Reportes de discusiones</th>
             </tr>
-
-
             {% for report in reports %}
-                {% if report ['tipo'] == 1 %}
                 <tr class="highlightable">
                     <td>{{ report }}</td>
+                    {{ report }}
                     <td class="alignleft">{{ button('grayBg', '/moderator/moderator/view?reportid=' + report['id']|string + '&redirect_to=/moderator/moderator', report['content']) }}</td> 
                     <td>{{submit_button('bluebg','Aceptar')}}
                     {{submit_button('redbg','Rechazar')}}</td>
                 </tr>
-                {%endif%}
             {% endfor %}
 
             <tr>

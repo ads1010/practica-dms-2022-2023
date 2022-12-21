@@ -10,12 +10,13 @@ from dms2223backend.data.db.results import Report
 from dms2223backend.data.db.results import Reportanswer
 from dms2223backend.data.db.exc import ReportExistsError
 from dms2223backend.data.db.results import Reportcomment
+from dms2223backend.data.reportstatus import ReportStatus
 
 class Reports():
     """ Class responsible of table-level reports operations.
     """
     @staticmethod
-    def create(session: Session, tiporeporte: int,discussionid: int,content: str) -> Report:
+    def create(session: Session, tiporeporte: int,discussionid: int,content: str, propietario : str) -> Report:
         """ Creates a new report record.
 
         Note:
@@ -36,7 +37,7 @@ class Reports():
         if not tiporeporte or not content:
             raise ValueError('A type report and a content hash are required.')
         try:
-            new_report = Report(tiporeporte,discussionid,content)
+            new_report = Report(tiporeporte,discussionid,content,ReportStatus.PENDING,propietario)
             session.add(new_report)
             session.commit()
             return new_report
@@ -77,7 +78,7 @@ class Reports():
                 ) from ex
 
     @staticmethod
-    def create_comment_report(session: Session, tiporeporte: int,commentid: int,content: str) -> Report:
+    def create_comment_report(session: Session,commentid: int,content: str) -> Report:
         """ Creates a new report record.
 
         Note:
@@ -95,10 +96,10 @@ class Reports():
         Returns:
             - User: The created `report` result.
         """
-        if not tiporeporte or not content:
+        if not content:
             raise ValueError('A type report and a content hash are required.')
         try:
-            new_report = Reportcomment(tiporeporte,commentid,content)
+            new_report = Reportcomment(commentid,content)
             session.add(new_report)
             session.commit()
             return new_report

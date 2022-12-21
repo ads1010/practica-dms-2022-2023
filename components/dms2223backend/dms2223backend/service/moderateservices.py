@@ -5,7 +5,7 @@ from typing import List, Dict
 from sqlalchemy.orm.session import Session  # type: ignore
 from dms2223backend.data.rest import AuthService
 from dms2223backend.data.db import Schema
-from dms2223backend.data.db.results import Report
+from dms2223backend.data.db.results import Report, Reportcomment
 from dms2223backend.logic import ReportLogic
 
 
@@ -126,6 +126,32 @@ class reportsServices():
             out['content'] = new_report.content
             out['tipo'] = new_report.tipo
             out['discussionid'] = new_report.discussionid#type: ignore
+
+        except Exception as ex:
+            raise ex
+        finally:
+            schema.remove_session()
+        return out
+
+    def create_report_comment( content: str, id:int , schema: Schema) -> Dict:
+        """Creates a report.
+
+        Args:
+            - schema (Schema): A database handler where the reports are mapped into.
+            - id (int): report id.
+
+        Returns:
+            - Dict: Dictonary that contains the reports's data.
+        """
+      
+        session: Session = schema.new_session()
+        out: Dict = {}
+        try:
+            new_report: Reportcomment = ReportLogic.create_report_comment(session, id, content)
+            out['id'] = new_report.id#type: ignore
+            out['content'] = new_report.content
+            out['tipo'] = new_report.tipo
+            out['commentid'] = new_report.commentid#type: ignore
 
         except Exception as ex:
             raise ex

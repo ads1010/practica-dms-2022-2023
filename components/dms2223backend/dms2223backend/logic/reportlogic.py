@@ -6,7 +6,7 @@ from typing import List, Optional
 from sqlalchemy.exc import IntegrityError  # type: ignore
 from sqlalchemy.orm.session import Session  # type: ignore
 from sqlalchemy.orm.exc import NoResultFound  # type: ignore
-from dms2223backend.data.db.results import Report
+from dms2223backend.data.db.results import Report , Reportcomment
 from dms2223backend.data.db.resultsets import Reports
 from dms2223backend.data.db.exc import DiscussionExistsError
 
@@ -78,6 +78,36 @@ class ReportLogic():
         """
 
         return Reports.list_all_report_comments(session)
+
+    @staticmethod
+    def create_report_comment(session : Session, id :int, content : str)-> Reportcomment:
+        """ Creates a new report record.
+
+        Note:
+            Any existing transaction will be committed.
+
+        Args:
+            - session (Session): The session object.
+            - title (str): The title of the report string.
+            - content (str): The content of the report string.
+
+        Raises:
+            - ValueError: If either the username or the password_hash is empty.
+            - reportExistsError: If a user with the same username already exists.
+
+        Returns:
+            - report: The created `report` result.
+        """
+        
+        try:
+            new_report: Report = Reports.create_comment_report(session,id, content)
+           
+        except Exception as ex:
+            raise ex
+        return new_report
+
+
+
 
     @staticmethod
     def get_report_by_id(session: Session, id: int,) -> Optional[Report]:
