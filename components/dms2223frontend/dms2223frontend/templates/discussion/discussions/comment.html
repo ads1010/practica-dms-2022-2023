@@ -5,16 +5,12 @@
     <form action="/discussion/discussions/comment" method="post">
         <input type="hidden" name="redirect_to" value="{{ redirect_to }}" />
         <input type="hidden" name="discussionid" value="{{ discussion['id'] }}" />
-        <input type="hidden" name="answerid" value="{{ answers['id'] }}" />
-        
-        
+        <input type="hidden" name="answerid" value="{{ answerid }}" />
         <dl>
             <h3><dt>{{ discussion['title'] }}</dt></h3>
             <p>{{ discussion['content'] }}</p>
-            {{answers}}
+
             {%for answer in answers%}
-                {{ answer }}
-                {{ answerid }}
                 {%if answerid == answer['id']%}
                     <h3><dt>Respuesta</dt></h3> 
                     <textarea name="answerContent" rows="10" cols="100" readonly> {{ answer['content'] }} </textarea>

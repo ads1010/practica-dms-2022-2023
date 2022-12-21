@@ -28,7 +28,7 @@ class WebComment():
         return []
 
     @staticmethod
-    def create_comment(backend_service: BackendService, answerid: int, content: str) -> Optional[Dict]:
+    def create_comment(backend_service: BackendService, discussionid: int, answerid: int, content: str) -> Optional[Dict]:
         """ Creates a comment in the backend service.
 
         Args:
@@ -40,7 +40,7 @@ class WebComment():
             - Dict: A dictionary with the newly created user if successful.
             - None: Nothing on error.
         """
-        response: ResponseData = backend_service.create_comment(session.get('token'), answerid, content)
+        response: ResponseData = backend_service.create_comment(session.get('token'), discussionid, answerid, content)
         WebUtils.flash_response_messages(response)
         return response.get_content()
 

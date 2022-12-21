@@ -539,7 +539,7 @@ paths:
       summary: Gets the comments for an answer
       description: |
         Fetches the full answers for a given question.
-      operationId: dms2223backend.presentation.rest.comment.list_all_for_answer
+      operationId: dms2223backend.presentation.rest.comment.list_all_for_discussion
       parameters:
         - $ref: '#/components/parameters/AnswerIdPathParam'
       responses:
@@ -724,61 +724,61 @@ paths:
   #       - user_token: []
   #         api_key: []
   /answers/reports:
-    get:
-      summary: Get a list of answer reports.
-      description: |
-        This operation gets a listing of answer reports.
+      get:
+        summary: Get a list of answer reports.
+        description: |
+          This operation gets a listing of answer reports.
 
-        Several parameters can be used to filter out the reports according to
-        their status.
-      operationId: dms2223backend.presentation.rest.moderate.list_reports_answer
-      parameters:
-        - name: pending
-          description: |
-            Set to `false` to exclude the pending reports from the listing.
-          in: query
-          required: false
-          schema:
-            type: boolean
-            default: true
-        - name: accepted
-          description: |
-            Set to `false` to exclude the accepted reports from the listing.
-          in: query
-          required: false
-          schema:
-            type: boolean
-            default: true
-        - name: rejected
-          description: |
-            Set to `false` to exclude the rejected reports from the listing.
-          in: query
-          required: false
-          schema:
-            type: boolean
-            default: true
-      responses:
-        '200':
-          description: Listing of answer reports
-          content:
-            'application/json':
-              schema:
-                $ref: '#/components/schemas/AnswerReportsListModel'
-              example:
-                - id: 1
-                  aid: 7
-                  reason: Unrelated to the question
-                  status: ACCEPTED
-                  owner:
-                    username: user4
-                  timestamp: 1665922785
-      tags:
-        - moderation
-        - answers
-        - reports
-      security:
-        - user_token: []
-          api_key: []
+          Several parameters can be used to filter out the reports according to
+          their status.
+        operationId: dms2223backend.presentation.rest.moderate.list_reports_answer
+        parameters:
+          - name: pending
+            description: |
+              Set to `false` to exclude the pending reports from the listing.
+            in: query
+            required: false
+            schema:
+              type: boolean
+              default: true
+          - name: accepted
+            description: |
+              Set to `false` to exclude the accepted reports from the listing.
+            in: query
+            required: false
+            schema:
+              type: boolean
+              default: true
+          - name: rejected
+            description: |
+              Set to `false` to exclude the rejected reports from the listing.
+            in: query
+            required: false
+            schema:
+              type: boolean
+              default: true
+        responses:
+          '200':
+            description: Listing of answer reports
+            content:
+              'application/json':
+                schema:
+                  $ref: '#/components/schemas/AnswerReportsListModel'
+                example:
+                  - id: 1
+                    aid: 7
+                    reason: Unrelated to the question
+                    status: ACCEPTED
+                    owner:
+                      username: user4
+                    timestamp: 1665922785
+        tags:
+          - moderation
+          - answers
+          - reports
+        security:
+          - user_token: []
+            api_key: []
   # /answers/reports/{arid}:
   #   put:
   #     summary: Change the status of an answer report
@@ -951,40 +951,40 @@ paths:
         - user_token: []
           api_key: []
   # /comments/reports/{crid}:
-    # put:
-    #   summary: Change the status of a comment report
-    #   description: |
-    #     Use this operation to change the status of a comment report.
+  #     put:
+  #       summary: Change the status of a comment report
+  #       description: |
+  #         Use this operation to change the status of a comment report.
 
-    #     When a report on a comment is accepted, the linked comment should be
-    #     hidden so it will not be visible.
-    #   # operationId: TODO: Set to the fully-qualified name of the function handling the operation
-    #   parameters:
-    #     - $ref: '#/components/parameters/CommentReportIdPathParam'
-    #   requestBody:
-    #     content:
-    #       'application/json':
-    #         schema:
-    #           $ref: '#/components/schemas/ReportStatusChangeModel'
-    #         example:
-    #           status: ACCEPTED
-    #   responses:
-    #     '204':
-    #       $ref: '#/components/responses/ReportStatusChanged'
-    #     '404':
-    #       description: The comment report does not exist.
-    #       content:
-    #         'text/plain':
-    #           schema:
-    #             type: string
-    #           example: 'The comment report with crid 25 does not exist.'
-    #   tags:
-    #     - moderation
-    #     - comments
-    #     - reports
-    #   security:
-        - user_token: []
-          api_key: []
+  #         When a report on a comment is accepted, the linked comment should be
+  #         hidden so it will not be visible.
+  #       operationId: TODO: Set to the fully-qualified name of the function handling the operation
+  #       parameters:
+  #         - $ref: '#/components/parameters/CommentReportIdPathParam'
+  #       requestBody:
+  #         content:
+  #           'application/json':
+  #             schema:
+  #               $ref: '#/components/schemas/ReportStatusChangeModel'
+  #             example:
+  #               status: ACCEPTED
+  #       responses:
+  #         '204':
+  #           $ref: '#/components/responses/ReportStatusChanged'
+  #         '404':
+  #           description: The comment report does not exist.
+  #           content:
+  #             'text/plain':
+  #               schema:
+  #                 type: string
+  #               example: 'The comment report with crid 25 does not exist.'
+  #       tags:
+  #         - moderation
+  #         - comments
+  #         - reports
+  #       security:
+  #         - user_token: []
+  #           api_key: []
 components:
   schemas:
     QuestionCoreModel:
@@ -1340,7 +1340,7 @@ components:
         type: integer
       required: true
     CommentIdPathParam:
-      name: cid
+      name: id
       description: Comment identifier.
       in: path
       schema:

@@ -9,13 +9,11 @@
             <dd>
                 <input type="text" name="title" placeholder="Escribe el titulo..." autofocus />
             </dd>
+            
             <dt>Contenido</dt>
             <dd>
                 <textarea name="content" rows="20" cols="100" placeholder="Escribe el contenido..."></textarea>
-            </dd>
-
-            <dt><p>Usuario:<textarea name="content" rows="1" cols="15"></textarea></p></dt>
-            
+            </dd>            
         </dl>
         <p class="alignright">{{ submit_button('bluebg', 'Guardar cambios') }}{{ button('redbg', redirect_to, 'Cancelar') }}</p>
     </form>

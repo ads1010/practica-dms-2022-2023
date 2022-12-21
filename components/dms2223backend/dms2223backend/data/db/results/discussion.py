@@ -6,6 +6,7 @@ from sqlalchemy import Table, MetaData, Column, String , Integer, TIME, DATE # t
 from sqlalchemy.orm import relationship  # type: ignore
 from dms2223backend.data.db.results.resultbase import ResultBase
 from dms2223backend.data.db.results.answer import Answer
+from dms2223backend.data.db.results.comment import Comment
 from dms2223backend.data.db.results.report import Report
 
 class Discussion(ResultBase):
