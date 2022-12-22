@@ -39,7 +39,7 @@
             {% for reportcomment in reportscomment %}
             <tr class="highlightable">
                 <td>{{ reportcomment }}</td>
-                <td class="alignleft">{{ button('grayBg', '/moderator/moderator/view?reportcommentrid=' + reportcomment['id']|string + '&redirect_to=/moderator/moderator', reportcomment['content']) }}</td> 
+                <td class="alignleft">{{ button('grayBg', '/moderator/moderator/view?reportcommentrid=' + reportcomment['id']|string + '&redirect_to=/moderator/moderator', reportcomment['reason']) }}</td> 
                 <td>{{submit_button('bluebg','Aceptar')}}
                     {{submit_button('redbg','Rechazar')}}</td>
             </tr>

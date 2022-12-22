@@ -101,7 +101,7 @@ class reportsServices():
                 'id': report.id,
                 'tipo': report.tipo,
                 'commentid': report.commentid,
-                'content': report.content,
+                'reason': report.reason,
             })
         schema.remove_session()
         return out
@@ -133,7 +133,7 @@ class reportsServices():
             schema.remove_session()
         return out
 
-    def create_report_comment( content: str, id:int , schema: Schema) -> Dict:
+    def create_report_comment(id:int, reason: str  ,schema: Schema) -> Dict:
         """Creates a report.
 
         Args:
@@ -147,9 +147,9 @@ class reportsServices():
         session: Session = schema.new_session()
         out: Dict = {}
         try:
-            new_report: Reportcomment = ReportLogic.create_report_comment(session, id, content)
+            new_report: Reportcomment = ReportLogic.create_report_comment(session, id, reason)
             out['id'] = new_report.id#type: ignore
-            out['content'] = new_report.content
+            out['reason'] = new_report.reason
             out['tipo'] = new_report.tipo
             out['commentid'] = new_report.commentid#type: ignore
 

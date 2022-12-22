@@ -93,7 +93,7 @@ class BackendService():
         
         return response_data
     
-    def create_report_comment(self, token: Optional[str],id :int,type: int, reason: str) -> ResponseData:
+    def create_report_comment(self, token: Optional[str],id :int, reason: str) -> ResponseData:
         """ Requests a discussion creation.
 
         Args:
@@ -107,11 +107,9 @@ class BackendService():
         """
         response_data: ResponseData = ResponseData()
         response: requests.Response = requests.post(
-            self.__base_url() + '/discussions/{id}/reports',
+            self.__base_url() + '/comments/{id}/reports',
             json={
-                'id': id,
-                'reason': reason,
-                'type': type
+                'reason': reason
             },
             headers={
                 'Authorization': f'Bearer {token}',

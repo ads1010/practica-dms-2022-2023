@@ -11,18 +11,18 @@ class Reportcomment(ResultBase):
     """ Definition and storage of report ORM records.
     """
 
-    def __init__(self,commentid:int ,content: str):
+    def __init__(self,commentid:int ,reason: str):
         """ Constructor method.
 
         Initializes a report record.
 
         Args:
             - title (str): A string with the report title.
-            - content (str): A string with the report title.
+            - reason (str): A string with the report title.
         """
 
     
-        self.content: str = content
+        self.reason: str = reason
         self.commentid: int = commentid
     @staticmethod
     def _table_definition(metadata: MetaData) -> Table:
@@ -39,7 +39,7 @@ class Reportcomment(ResultBase):
             'reportscomment',
             metadata,
             Column('id', Integer, autoincrement='auto', primary_key=True),
-            Column('content', String(250), nullable=False),
+            Column('reason', String(250), nullable=False),
             Column('commentid', Integer, ForeignKey('comments.id'), nullable=False),
             Column('tipo', Integer ,nullable=True), # si vale 1 discusion , si vale 2 respuesta , si vale 3 comentario
             #Column('time', TIME, nullable = False),

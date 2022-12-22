@@ -44,7 +44,7 @@ class WebQuestion():
         WebUtils.flash_response_messages(response)
         return response.get_content()
 
-    def create_reportcomment(backend_service: BackendService,id: int,content: str)-> Optional[Dict]:
+    def create_reportcomment(backend_service: BackendService,id: int,reason: str)-> Optional[Dict]:
         """ Creates a discussion in the backend service.
 
         Args:
@@ -56,8 +56,7 @@ class WebQuestion():
             - Dict: A dictionary with the newly created user if successful.
             - None: Nothing on error.
         """
-        response: ResponseData = backend_service.create_report_comment(session.get('token'),id,  content)
-        WebUtils.flash_response_messages(response)
+        response: ResponseData = backend_service.create_report_comment(session.get('token'),id,reason)
         return response.get_content()
 
 

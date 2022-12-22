@@ -45,19 +45,30 @@ Una vez ejecutados estos comandos se puede ver como se han ejecutado y detenido 
 ![man-instalación2.PNG](imagenes/man-instalación2.PNG)
 
 ## Manual de uso
-- [Manual](#Manual)
-  - [Discusion](#Discusion)
-    - [Ver listado de preguntas](#Ver-listado-de-preguntas)
-    - [Crear preguntas](#crear-preguntas)
-    - [Crear respuestas a preguntas](#Crear-respuestas-a-preguntas)
-    - [Crear comentarios a respuestas](#Crear-comentarios-a-respuestas)
-    - [Votar respuestas y comentarios](#Votar-respuestas-y-comentarios)
-    - [Reportar preguntas, respuestas y comentarios](#Reportar-preguntas-respuestas-y-comentarios)
+- [DMS course project codebase, academic year 2022-2023](#dms-course-project-codebase-academic-year-2022-2023)
+  - [Autores](#autores)
+  - [Manual de instalación](#manual-de-instalación)
+  - [Manual de uso](#manual-de-uso)
+  - [Manual](#manual)
+  - [Discussion](#discussion)
+    - [Ver listado de discusiones](#ver-listado-de-discusiones)
+    - [Crear discussion](#crear-discussion)
+    - [Crear respuestas a preguntas](#crear-respuestas-a-preguntas)
   - [Moderador](#moderador)
-    - [Ver pregunta individual](#Ver-pregunta-individual)
-    - [Ver listado de reportes y resolverlos](#Ver-listado-de-reportes-y-resolverlos)
-    - [Ocultar preguntas al aceptar reportes](#Ocultar-preguntas-al-aceptar-reportes)
+    - [Ver pregunta individual](#ver-pregunta-individual)
+    - [Ver listado de reportes y resolverlos](#ver-listado-de-reportes-y-resolverlos)
   - [Creación de nuevos usuarios](#creación-de-nuevos-usuarios)
+  - [Components](#components)
+    - [Services](#services)
+      - [`dms2223auth`](#dms2223auth)
+      - [`dms2223backend`](#dms2223backend)
+      - [`dms2223frontend`](#dms2223frontend)
+    - [Libraries](#libraries)
+      - [`dms2223core`](#dms2223core)
+  - [Docker](#docker)
+  - [Helper scripts](#helper-scripts)
+  - [GitHub workflows and badges](#github-workflows-and-badges)
+  - [Línea futura](#línea-futura)
 
 ## Manual
 Para la primera entrega teniendo en cuenta que será solo la parte del front-end tendremos las siguientes funcionalidades siendo el usuario "admin".
@@ -269,7 +280,7 @@ Los pasos que hemos de tomar para poder llevar a cabo esta linea futura son:
 - Un nuevo apartado en el home que permita el rapido acceso y visualizacion de la seccion al usuario
 - El apartado realizado para tener acceso a las discusiones en tendencia que tenga un diseño que anime al usuario a interactuar con esta nueva seccion 
 
-![Caputra.png](imagenes/Captura.png)
+![Captura.PNG](imagenes/Captura.PNG)
 
 - Una vez dentro del apartado de tendencias podremos visualizarlas los titulos de las discusiones en orden de mayor actividad.
 
@@ -278,8 +289,8 @@ Los pasos que hemos de tomar para poder llevar a cabo esta linea futura son:
     - 2º Nos permitirá visualizarlas según la localización (país y región)
 - Podremos visualizar a primera vista el numero de interacciones actuales de la discusion además de las etiquetas relacionadas con ese tema
 
-![Caputra.png](imagenes/Captura2.png)
+![Captura2.PNG](imagenes/Captura2.PNG)
 
 - Una vez dentro de cada discusion en tendencia resaltaremos al lado del titulo que se encuentra en tendencia y su posicion concretamente
 
-![Caputra.png](imagenes/Captura3.png)
+![Captura3.PNG](imagenes/Captura3.PNG)

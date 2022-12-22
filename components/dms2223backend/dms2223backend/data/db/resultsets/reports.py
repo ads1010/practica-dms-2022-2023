@@ -78,7 +78,7 @@ class Reports():
                 ) from ex
 
     @staticmethod
-    def create_comment_report(session: Session,commentid: int,content: str) -> Report:
+    def create_comment_report(session: Session,commentid: int,reason: str) -> Report:
         """ Creates a new report record.
 
         Note:
@@ -96,10 +96,10 @@ class Reports():
         Returns:
             - User: The created `report` result.
         """
-        if not content:
+        if not reason:
             raise ValueError('A type report and a content hash are required.')
         try:
-            new_report = Reportcomment(commentid,content)
+            new_report = Reportcomment(commentid,reason)
             session.add(new_report)
             session.commit()
             return new_report

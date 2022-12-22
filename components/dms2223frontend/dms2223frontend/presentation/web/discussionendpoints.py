@@ -11,6 +11,7 @@ from .webauth import WebAuth
 from .webquestion import WebQuestion
 from .webanswer import WebAnswer
 from .webcomment import WebComment
+from .webutils import WebUtils
 class DiscussionEndpoints():
     """ Monostate class responsible of handling the discussion web endpoint requests.
     """
@@ -297,9 +298,11 @@ class DiscussionEndpoints():
         if Role.DISCUSSION.name not in session['roles']:
             return redirect(url_for('get_home'))
         name = session['user']
-        id: int = int(str(request.args.get('answerid')))
+        answerid: int = int(str(request.args.get('answerid')))
+        discussionid: int = int(str(request.args.get('discussionid'))) 
         redirect_to = request.args.get('redirect_to', default='/discussion/discussions/view')
-        return render_template('discussion/discussions/reportanswer.html', name=name, roles=session['roles'], redirect_to=redirect_to,answer=WebAnswer.get_answer(backend_service, id))
+        return render_template('discussion/discussions/reportanswer.html', name=name, roles=session['roles'], redirect_to=redirect_to, discussionid = discussionid,answerid=answerid,
+        answers=WebAnswer.list_answers(backend_service, discussionid))
 
     @staticmethod
     def get_discussion_discussions_reportcomment(auth_service: AuthService, backend_service: BackendService) -> Union[Response, Text]:
@@ -316,9 +319,13 @@ class DiscussionEndpoints():
         if Role.DISCUSSION.name not in session['roles']:
             return redirect(url_for('get_home'))
         name = session['user']
-        id: int = int(str(request.args.get('commentid')))
+        answerid: int = int(str(request.args.get('answerid')))
+        commentid:  int = int(str(request.args.get('commentid')))
+        discussionid:  int = int(str(request.args.get('discussionid')))
         redirect_to = request.args.get('redirect_to', default='/discussion/discussions/view')
-        return render_template('discussion/discussions/reportcomment.html', name=name, roles=session['roles'], redirect_to=redirect_to,comment=WebComment.get_comment(backend_service, id))
+
+        return render_template('discussion/discussions/reportcomment.html', name=name, roles=session['roles'],answerid = answerid , redirect_to=redirect_to,
+        commentid = commentid ,comments=WebComment.list_comments(backend_service,discussionid))
 
     def post_discussion_discussions_reportcomment(auth_service: AuthService, backend_service: BackendService) -> Union[Response, Text]:
         """ Handles the POST requests to the discussion root endpoint.
@@ -334,15 +341,16 @@ class DiscussionEndpoints():
         if Role.DISCUSSION.name not in session['roles']:
             return redirect(url_for('get_home'))
 
+        cid = request.form.get('cid')
+        reason = request.form.get('content')
         new_discussion = WebQuestion.create_reportcomment(backend_service,
-                                        request.form['cid'],
-                                        request.form['content']
+                                        cid,
+                                        reason=str(reason)
                                         )
-                                    
         if not new_discussion:
-            return redirect(url_for('get_discussion_discussions_new'))
+            return redirect(url_for('get_discussion_discussions'))
         redirect_to = request.form['redirect_to']
         if not redirect_to:
-            redirect_to = url_for('get_discussion_discussions')
+            redirect_to = url_for('get_discussion_discussions_view')
 
         return redirect(redirect_to)

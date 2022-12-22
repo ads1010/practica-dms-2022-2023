@@ -80,7 +80,7 @@ class ReportLogic():
         return Reports.list_all_report_comments(session)
 
     @staticmethod
-    def create_report_comment(session : Session, id :int, content : str)-> Reportcomment:
+    def create_report_comment(session : Session, id :int, reason : str)-> Reportcomment:
         """ Creates a new report record.
 
         Note:
@@ -100,7 +100,7 @@ class ReportLogic():
         """
         
         try:
-            new_report: Report = Reports.create_comment_report(session,id, content)
+            new_report: Report = Reports.create_comment_report(session,id, reason)
            
         except Exception as ex:
             raise ex

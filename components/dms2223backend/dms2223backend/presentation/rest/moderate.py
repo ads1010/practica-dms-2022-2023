@@ -66,7 +66,7 @@ def create_report(body: Dict) -> Tuple[Union[Dict, str], Optional[int]]:
             return ('The user with the given username can not create a report', HTTPStatus.FORBIDDEN.value)
     return (report, HTTPStatus.OK.value)
 
-def create_comment_report(body: Dict) -> Tuple[Union[Dict, str], Optional[int]]:
+def create_comment_report(body: Dict, id: int ) -> Tuple[Union[Dict, str], Optional[int]]:
     """Creates a report if the requestor has the report role.
 
     Args:
@@ -82,9 +82,8 @@ def create_comment_report(body: Dict) -> Tuple[Union[Dict, str], Optional[int]]:
     """
     with current_app.app_context():
         try:
-            
             report: Dict = reportsServices.create_report_comment(
-                body['id'],body['content'],current_app.db
+                id,body['reason'],current_app.db
             )
         except ValueError:
             return ('A mandatory argument is missing', HTTPStatus.BAD_REQUEST.value)
