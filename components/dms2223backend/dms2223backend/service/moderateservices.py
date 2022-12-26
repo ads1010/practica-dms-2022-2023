@@ -5,7 +5,7 @@ from typing import List, Dict
 from sqlalchemy.orm.session import Session  # type: ignore
 from dms2223backend.data.rest import AuthService
 from dms2223backend.data.db import Schema
-from dms2223backend.data.db.results import Report, Reportcomment
+from dms2223backend.data.db.results import Report, Reportcomment , Reportanswer
 from dms2223backend.logic import ReportLogic
 
 
@@ -56,7 +56,7 @@ class reportsServices():
                 'id': report.id,
                 'tipo': report.tipo,
                 'discussionid': report.discussionid,
-                'content': report.content,
+                'reason': report.reason,
             })
         schema.remove_session()
         return out
@@ -79,7 +79,7 @@ class reportsServices():
                 'id': report.id,
                 'tipo': report.tipo,
                 'answerid': report.answerid,
-                'content': report.content,
+                'reason': report.reason,
             })
         schema.remove_session()
         return out
@@ -107,7 +107,7 @@ class reportsServices():
         return out
 
     @staticmethod
-    def create_report(tiporeport:int,title:str, content: str, schema: Schema) -> Dict:
+    def create_report(id:int, reason: str  ,schema: Schema) -> Dict:
         """Creates a report.
 
         Args:
@@ -121,9 +121,9 @@ class reportsServices():
         session: Session = schema.new_session()
         out: Dict = {}
         try:
-            new_report: Report = ReportLogic.create(tiporeport,session, title, content)
+            new_report: Report = ReportLogic.create(session, id, reason)
             out['id'] = new_report.id#type: ignore
-            out['content'] = new_report.content
+            out['reason'] = new_report.reason
             out['tipo'] = new_report.tipo
             out['discussionid'] = new_report.discussionid#type: ignore
 
@@ -152,6 +152,32 @@ class reportsServices():
             out['reason'] = new_report.reason
             out['tipo'] = new_report.tipo
             out['commentid'] = new_report.commentid#type: ignore
+
+        except Exception as ex:
+            raise ex
+        finally:
+            schema.remove_session()
+        return out
+
+    def create_report_answer(id:int, reason: str  ,schema: Schema) -> Dict:
+        """Creates a report.
+
+        Args:
+            - schema (Schema): A database handler where the reports are mapped into.
+            - id (int): report id.
+
+        Returns:
+            - Dict: Dictonary that contains the reports's data.
+        """
+      
+        session: Session = schema.new_session()
+        out: Dict = {}
+        try:
+            new_report: Reportanswer = ReportLogic.create_report_answer(session, id, reason)
+            out['id'] = new_report.id#type: ignore
+            out['reason'] = new_report.reason
+            out['tipo'] = new_report.tipo
+            out['answerid'] = new_report.answerid#type: ignore
 
         except Exception as ex:
             raise ex

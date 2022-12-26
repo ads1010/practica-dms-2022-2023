@@ -13,7 +13,7 @@ class Report(ResultBase):
     """ Definition and storage of report ORM records.
     """
 
-    def __init__(self, tipo : int,discussionid:int ,content: str,status :ReportStatus,usuario: str):
+    def __init__(self,discussionid:int ,reason: str):
         """ Constructor method.
 
         Initializes a report record.
@@ -24,12 +24,12 @@ class Report(ResultBase):
         """
 
     
-        self.tipo: int = tipo
-        self.content: str = content
+        #self.tipo: int = tipo
+        self.reason: str = reason
         self.discussionid: int = discussionid
-        self.status: ReportStatus = status
-        self.timestamp: DateTime
-        self.propietario: str = usuario
+        #self.status: ReportStatus = status
+        #self.timestamp: DateTime
+        #self.propietario: str = usuario
     @staticmethod
     def _table_definition(metadata: MetaData) -> Table:
         """ Gets the table definition.
@@ -45,12 +45,12 @@ class Report(ResultBase):
             'reports',
             metadata,
             Column('id', Integer, autoincrement='auto', primary_key=True),
-            Column('content', String(250), nullable=False),
+            Column('reason', String(250), nullable=False),
             Column('discussionid', Integer, ForeignKey('discussions.id'), nullable=False),
-            Column('tipo', Integer ,nullable=False), # si vale 1 discusion , si vale 2 respuesta , si vale 3 comentario
-            Column('status',Enum(ReportStatus),default = ReportStatus.PENDING ,nullable = False),
-            Column('propietario', String(250), nullable=False),
-            Column('timestamp', DateTime, nullable=False, default = func.now())
+            Column('tipo', Integer ,nullable=True), # si vale 1 discusion , si vale 2 respuesta , si vale 3 comentario
+            #Column('status',Enum(ReportStatus),default = ReportStatus.PENDING ,nullable = False),
+            #Column('propietario', String(250), nullable=False),
+            #Column('timestamp', DateTime, nullable=False, default = func.now())
         )
 
 

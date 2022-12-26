@@ -15,7 +15,7 @@ class ReportLogic():
     """ Class with logic-level operations with the discussion-related use cases.
     """
     @staticmethod
-    def create(session: Session,tipo: int, title: str, content: str) -> Report:
+    def create(session : Session, id :int, reason : str)-> Reportcomment:
         """ Creates a new report record.
 
         Note:
@@ -35,7 +35,7 @@ class ReportLogic():
         """
         
         try:
-            new_report: Report = Reports.create(session,tipo, title, content)
+            new_report: Report = Reports.create(session,id, reason)
            
         except Exception as ex:
             raise ex
@@ -106,7 +106,31 @@ class ReportLogic():
             raise ex
         return new_report
 
+    def create_report_answer(session : Session, id :int, reason : str)-> Reportcomment:
+        """ Creates a new report record.
 
+        Note:
+            Any existing transaction will be committed.
+
+        Args:
+            - session (Session): The session object.
+            - title (str): The title of the report string.
+            - content (str): The content of the report string.
+
+        Raises:
+            - ValueError: If either the username or the password_hash is empty.
+            - reportExistsError: If a user with the same username already exists.
+
+        Returns:
+            - report: The created `report` result.
+        """
+        
+        try:
+            new_report: Report = Reports.create_answer_report(session,id, reason)
+           
+        except Exception as ex:
+            raise ex
+        return new_report
 
 
     @staticmethod

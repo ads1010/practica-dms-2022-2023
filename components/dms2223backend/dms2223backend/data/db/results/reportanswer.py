@@ -11,7 +11,7 @@ class Reportanswer(ResultBase):
     """ Definition and storage of report ORM records.
     """
 
-    def __init__(self, tipo : int,answerid:int ,content: str):
+    def __init__(self, answerid:int ,reason: str):
         """ Constructor method.
 
         Initializes a report record.
@@ -21,9 +21,8 @@ class Reportanswer(ResultBase):
             - content (str): A string with the report title.
         """
 
-    
-        self.tipo: int = tipo
-        self.content: str = content
+
+        self.reason: str = reason
         self.answerid: int = answerid
     @staticmethod
     def _table_definition(metadata: MetaData) -> Table:
@@ -40,9 +39,9 @@ class Reportanswer(ResultBase):
             'reportsanswer',
             metadata,
             Column('id', Integer, autoincrement='auto', primary_key=True),
-            Column('content', String(250), nullable=False),
+            Column('reason', String(250), nullable=False),
             Column('answerid', Integer, ForeignKey('answers.id'), nullable=False),
-            Column('tipo', Integer ,nullable=False), # si vale 1 discusion , si vale 2 respuesta , si vale 3 comentario
+            Column('tipo', Integer ,nullable=True), # si vale 1 discusion , si vale 2 respuesta , si vale 3 comentario
             #Column('time', TIME, nullable = False),
             #Column('user', String(15), nullable=False),
             #Column('date', DATE, nullable = False)

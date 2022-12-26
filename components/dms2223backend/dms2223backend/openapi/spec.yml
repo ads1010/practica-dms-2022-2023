@@ -350,7 +350,7 @@ paths:
         - user_token: []
           api_key: []
 
-  /discussions/{qid}/reports:
+  /discussions/{id}/reports:
     post:
       summary: Reports a question
       description: |
@@ -675,54 +675,56 @@ paths:
       security:
         - user_token: []
           api_key: []
-  # /answers/{aid}/reports:
-  #   post:
-  #     summary: Reports an answer
-  #     description: |
-  #       This operation will report an answer to be reviewed by a moderator.
 
-  #       The owner of the report will be automatically retrieved from the
-  #       user token against the authorization server.
-  #     # operationId: TODO: Set to the fully-qualified name of the function handling the operation
-  #     parameters:
-  #       - $ref: '#/components/parameters/AnswerIdPathParam'
-  #     requestBody:
-  #       content:
-  #         'application/json':
-  #           schema:
-  #             $ref: '#/components/schemas/AnswerReportCreationModel'
-  #           example:
-  #             reason: Unrelated to the question
-  #     responses:
-  #       '201':
-  #         description: The created report.
-  #         content:
-  #           'application/json':
-  #             schema:
-  #               $ref: '#/components/schemas/AnswerReportFullModel'
-  #             example:
-  #               id: 1
-  #               aid: 7
-  #               reason: Unrelated to the question
-  #               status: PENDING
-  #               owner:
-  #                 username: user4
-  #               timestamp: 1665922785
-  #       '404':
-  #         description: The answer does not exist.
-  #         content:
-  #           'text/plain':
-  #             schema:
-  #               type: string
-  #             example: 'The answer with aid 50 does not exist.'
-  #     tags:
-  #       - discussion
-  #       - moderation
-  #       - answers
-  #       - reports
-  #     security:
-  #       - user_token: []
-  #         api_key: []
+  /answers/{id}/reports:
+    post:
+      summary: Reports an answer
+      description: |
+        This operation will report an answer to be reviewed by a moderator.
+
+        The owner of the report will be automatically retrieved from the
+        user token against the authorization server.
+      operationId: dms2223backend.presentation.rest.moderate.create_answer_report
+      parameters:
+        - $ref: '#/components/parameters/AnswerIdPathParam'
+      requestBody:
+        content:
+          'application/json':
+            schema:
+              $ref: '#/components/schemas/AnswerReportCreationModel'
+            example:
+              reason: Unrelated to the question
+      responses:
+        '201':
+          description: The created report.
+          content:
+            'application/json':
+              schema:
+                $ref: '#/components/schemas/AnswerReportFullModel'
+              example:
+                id: 1
+                aid: 7
+                reason: Unrelated to the question
+                status: PENDING
+                owner:
+                  username: user4
+                timestamp: 1665922785
+        '404':
+          description: The answer does not exist.
+          content:
+            'text/plain':
+              schema:
+                type: string
+              example: 'The answer with aid 50 does not exist.'
+      tags:
+        - discussion
+        - moderation
+        - answers
+        - reports
+      security:
+        - user_token: []
+          api_key: []
+
   /answers/reports:
       get:
         summary: Get a list of answer reports.

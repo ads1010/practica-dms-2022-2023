@@ -4,12 +4,14 @@
 {% block discussioncontent %}
     <form action="/discussion/discussions/report" method="post">
         <input type="hidden" name="redirect_to" value="{{ redirect_to }}" />
+        <input type="hidden" name="discussionid" value="{{ discussionid }}" />
 
         <dl>
             <h3><dt>{{ discussion }}</dt></h3>
+        {{discussionid}}
 		<dt><p>Cuentanos que sucede</p></dt>
             <dd>
-                <textarea name="content" rows="15" cols="100"></textarea>
+                <textarea name="reason" rows="15" cols="100"></textarea>
                 <var name="tiporeport" value="1">1</var>
             </dd>
             

@@ -16,7 +16,7 @@ class Reports():
     """ Class responsible of table-level reports operations.
     """
     @staticmethod
-    def create(session: Session, tiporeporte: int,discussionid: int,content: str, propietario : str) -> Report:
+    def create(session: Session,discussionid: int,reason: str) -> Report:
         """ Creates a new report record.
 
         Note:
@@ -34,10 +34,10 @@ class Reports():
         Returns:
             - User: The created `report` result.
         """
-        if not tiporeporte or not content:
+        if not reason:
             raise ValueError('A type report and a content hash are required.')
         try:
-            new_report = Report(tiporeporte,discussionid,content,ReportStatus.PENDING,propietario)
+            new_report = Report(discussionid,reason)
             session.add(new_report)
             session.commit()
             return new_report
@@ -47,7 +47,7 @@ class Reports():
                 ) from ex
 
     @staticmethod
-    def create_answer_report(session: Session, tiporeporte: int,answerid: int,content: str) -> Report:
+    def create_answer_report(session: Session,answerid: int,reason: str) -> Report:
         """ Creates a new report record.
 
         Note:
@@ -65,10 +65,10 @@ class Reports():
         Returns:
             - User: The created `report` result.
         """
-        if not tiporeporte or not content:
+        if not reason:
             raise ValueError('A type report and a content hash are required.')
         try:
-            new_report = Reportanswer(tiporeporte,answerid,content)
+            new_report = Reportanswer(answerid,reason)
             session.add(new_report)
             session.commit()
             return new_report
