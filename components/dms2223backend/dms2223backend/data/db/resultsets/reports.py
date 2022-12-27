@@ -37,7 +37,8 @@ class Reports():
         if not reason:
             raise ValueError('A type report and a content hash are required.')
         try:
-            new_report = Report(discussionid,reason)
+            estado = ReportStatus.PENDING
+            new_report = Report(discussionid,reason,estado)
             session.add(new_report)
             session.commit()
             return new_report
@@ -68,7 +69,8 @@ class Reports():
         if not reason:
             raise ValueError('A type report and a content hash are required.')
         try:
-            new_report = Reportanswer(answerid,reason)
+            estado = ReportStatus.PENDING
+            new_report = Reportanswer(answerid,reason,estado)
             session.add(new_report)
             session.commit()
             return new_report
@@ -99,7 +101,8 @@ class Reports():
         if not reason:
             raise ValueError('A type report and a content hash are required.')
         try:
-            new_report = Reportcomment(commentid,reason)
+            estado = ReportStatus.PENDING
+            new_report = Reportcomment(commentid,reason,estado)
             session.add(new_report)
             session.commit()
             return new_report

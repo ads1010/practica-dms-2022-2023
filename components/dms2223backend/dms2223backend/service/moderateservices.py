@@ -5,6 +5,7 @@ from typing import List, Dict
 from sqlalchemy.orm.session import Session  # type: ignore
 from dms2223backend.data.rest import AuthService
 from dms2223backend.data.db import Schema
+from dms2223backend.data.reportstatus import ReportStatus
 from dms2223backend.data.db.results import Report, Reportcomment , Reportanswer
 from dms2223backend.logic import ReportLogic
 
@@ -54,9 +55,10 @@ class reportsServices():
         for report in reports:
             out.append({
                 'id': report.id,
-                'tipo': report.tipo,
                 'discussionid': report.discussionid,
                 'reason': report.reason,
+                'timestamp': report.timestamp,
+                'status': report.status.name
             })
         schema.remove_session()
         return out
@@ -77,9 +79,10 @@ class reportsServices():
         for report in reports:
             out.append({
                 'id': report.id,
-                'tipo': report.tipo,
                 'answerid': report.answerid,
                 'reason': report.reason,
+                'timestamp': report.timestamp,
+                'status': report.status.name
             })
         schema.remove_session()
         return out
@@ -99,9 +102,10 @@ class reportsServices():
         for report in reports:
             out.append({
                 'id': report.id,
-                'tipo': report.tipo,
                 'commentid': report.commentid,
                 'reason': report.reason,
+                'timestamp': report.timestamp,
+                'status': report.status.name
             })
         schema.remove_session()
         return out
@@ -125,7 +129,9 @@ class reportsServices():
             out['id'] = new_report.id#type: ignore
             out['reason'] = new_report.reason
             out['tipo'] = new_report.tipo
+            out['timestamp'] = new_report.timestamp
             out['discussionid'] = new_report.discussionid#type: ignore
+            out['status'] = new_report.status.name
 
         except Exception as ex:
             raise ex
@@ -152,6 +158,7 @@ class reportsServices():
             out['reason'] = new_report.reason
             out['tipo'] = new_report.tipo
             out['commentid'] = new_report.commentid#type: ignore
+            out['status'] = new_report.status.name
 
         except Exception as ex:
             raise ex
@@ -178,6 +185,7 @@ class reportsServices():
             out['reason'] = new_report.reason
             out['tipo'] = new_report.tipo
             out['answerid'] = new_report.answerid#type: ignore
+            out['status'] = new_report.status.name
 
         except Exception as ex:
             raise ex

@@ -8,6 +8,7 @@ from sqlalchemy.orm.session import Session  # type: ignore
 from sqlalchemy.orm.exc import NoResultFound  # type: ignore
 from dms2223backend.data.db.results import Report , Reportcomment
 from dms2223backend.data.db.resultsets import Reports
+from dms2223backend.data.reportstatus import ReportStatus
 from dms2223backend.data.db.exc import DiscussionExistsError
 
 

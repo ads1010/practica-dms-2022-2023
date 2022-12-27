@@ -2,16 +2,16 @@
 """
 
 from typing import Dict
-from sqlalchemy import Table, MetaData, Column, String , Integer, TIME, DATE ,ForeignKey# type: ignore
+from sqlalchemy import Table, MetaData, Column,func ,DateTime,String , Enum,Integer, TIME, DATE ,ForeignKey# type: ignore
 from sqlalchemy.orm import relationship  # type: ignore
 from dms2223backend.data.db.results.resultbase import ResultBase
-
+from dms2223backend.data.reportstatus import ReportStatus
 
 class Reportanswer(ResultBase):
     """ Definition and storage of report ORM records.
     """
 
-    def __init__(self, answerid:int ,reason: str):
+    def __init__(self, answerid:int ,reason: str,status:ReportStatus):
         """ Constructor method.
 
         Initializes a report record.
@@ -24,6 +24,9 @@ class Reportanswer(ResultBase):
 
         self.reason: str = reason
         self.answerid: int = answerid
+        self.timestamp: DateTime
+        self.status: ReportStatus = status
+
     @staticmethod
     def _table_definition(metadata: MetaData) -> Table:
         """ Gets the table definition.
@@ -41,8 +44,8 @@ class Reportanswer(ResultBase):
             Column('id', Integer, autoincrement='auto', primary_key=True),
             Column('reason', String(250), nullable=False),
             Column('answerid', Integer, ForeignKey('answers.id'), nullable=False),
-            Column('tipo', Integer ,nullable=True), # si vale 1 discusion , si vale 2 respuesta , si vale 3 comentario
-            #Column('time', TIME, nullable = False),
+            Column('status',Enum(ReportStatus),default = ReportStatus.PENDING ,nullable = False),
+            Column('timestamp', DateTime, nullable=False, default = func.now())
             #Column('user', String(15), nullable=False),
             #Column('date', DATE, nullable = False)
         )

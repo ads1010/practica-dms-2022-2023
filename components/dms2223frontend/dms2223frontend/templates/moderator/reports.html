@@ -3,49 +3,74 @@
 {% block title %}{% block subtitle %}{% endblock %}Moderator{% endblock %}
 {% block contentheading %}Gestión de moderadores{% endblock %}
 {% block moderatorcontent %}
-    <table class="fillwidth highlightrows">
+
+<style type = "text/css">
+     tr,td{
+        border: 1px solid black;
+    }
+</style>
+    <table class="fillwidth highlightrows" style="width:100%">
         <tbody>
 
-            <tr>
-                <th class="alignleft">Reportes de discusiones</th>
-            </tr>
+            
+            <p><b>Reportes de discusiones</b></p>
+            <table>
             {% for report in reports %}
                 <tr class="highlightable">
-                    <td>{{ report }}</td>
-                    {{ report }}
-                    <td class="alignleft">{{ button('grayBg', '/moderator/moderator/view?reportid=' + report['id']|string + '&redirect_to=/moderator/moderator', report['content']) }}</td> 
+                <td>
+                    <ul>
+                        <li><p>Id de la discussion: {{ report['discussionid'] }}</p></li>
+                        <li><p>Id del reporte de discusion: {{ report['id'] }}</p></li>
+                        <li><p>Motivo del reporte: {{ report['reason']}}</p></li>
+                        <li><p>Fecha y hora del reporte: {{ report['timestamp']}}</p></li>
+                        <li><p>Estado: {{ report['status']}}</p></li>
+                    </ul>
+                </td>
                     <td>{{submit_button('bluebg','Aceptar')}}
                     {{submit_button('redbg','Rechazar')}}</td>
                 </tr>
             {% endfor %}
+            </table>
 
-            <tr>
-                <th class="alignleft">Reportes de respuesta</th><th></th>
-            </tr>
+            <p><b>Reportes de respuestas</b></p>
+            <table>
             {% for reportanswer in reportsanswer %}
             <tr class="highlightable">
-                <td>{{ reportanswer }}</td>
-                {{reportanswer}}
-                <td class="alignleft">{{ button('grayBg', '/moderator/moderator/view?reportanswerid=' + reportanswer['id']|string + '&redirect_to=/moderator/moderator', reportanswer['content']) }}</td> 
+                <td>
+                    <ul>
+                        <li><p>Id de la respuesta: {{ reportanswer['answerid'] }}</p></li>
+                        <li><p>Id del reporte de pregunta: {{ reportanswer['id'] }}</p></li>
+                        <li><p>Motivo del reporte: {{ reportanswer['reason']}}</p></li>
+                        <li><p>Fecha y hora del reporte: {{ reportanswer['timestamp']}}</p></li>
+                        <li><p>Estado: {{ reportanswer['status']}}</p></li>
+                    </ul>
+                </td>              
                 <td>{{submit_button('bluebg','Aceptar')}}
                     {{submit_button('redbg','Rechazar')}}</td>
             </tr>
       
             {% endfor %} 
+            </table>
 
-            <tr>
-                <th class="alignleft">Reportes de comentarios</th><th></th>
-            </tr>
+            <p><b>Reportes de comentarios</b></p>
+            <table>
             {% for reportcomment in reportscomment %}
             <tr class="highlightable">
-                <td>{{ reportcomment }}</td>
-                <td class="alignleft">{{ button('grayBg', '/moderator/moderator/view?reportcommentrid=' + reportcomment['id']|string + '&redirect_to=/moderator/moderator', reportcomment['reason']) }}</td> 
-                <td>{{submit_button('bluebg','Aceptar')}}
+                <td>
+                    <ul>
+                        <li><p>Id de la respuesta: {{ reportcomment['commentid'] }}</p></li>
+                        <li><p>Id del reporte de comentario: {{ reportcomment['id'] }}</p></li>
+                        <li><p>Motivo del reporte: {{ reportcomment['reason']}}</p></li>
+                        <li><p>Fecha y hora del reporte: {{ reportcomment['timestamp']}}</p></li>
+                        <li><p>Estado: {{ reportcomment['status']}}</p></li>
+                    </ul>
+                </td>  
+                  <td>{{submit_button('bluebg','Aceptar')}}
                     {{submit_button('redbg','Rechazar')}}</td>
             </tr>
       
             {% endfor %} 
-
+            </table>
 
             
             
