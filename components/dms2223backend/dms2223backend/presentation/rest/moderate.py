@@ -160,3 +160,24 @@ def get_report_by_id(id: int) -> Tuple[Union[Dict, str], Optional[int]]:
         except ValueError:
             return ('A mandatory argument is missing', HTTPStatus.BAD_REQUEST.value)
     return (report, HTTPStatus.OK.value)
+
+def update_report_status(body : Dict , id : int) -> Tuple[Union[Dict, str], Optional[int]]:
+    """Get a report by id.
+
+    Args:
+        - id (int): Id for report.
+
+    Returns:
+        - Tuple[Union[Dict, str], Optional[int]]: On success, a tuple with the dictionary of the
+          new report data and a code 200 OK. On error, a description message and code:
+            - 400 BAD REQUEST when a mandatory argument is missing.
+    """
+    with current_app.app_context():
+        try:
+            reportsServices.update_report_status(current_app.db , id , body['status'])
+            reporte: Dict = reportsServices.get_report_by_id(id,current_app.db) #cambiar
+            return reporte , HTTPStatus.OK
+
+        except ValueError:
+            return ('A mandatory argument is missing', HTTPStatus.BAD_REQUEST.value)
+    return (report, HTTPStatus.OK.value)

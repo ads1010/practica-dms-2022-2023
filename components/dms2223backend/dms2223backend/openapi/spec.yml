@@ -469,41 +469,41 @@ paths:
   #     security:
   #       - user_token: []
   #         api_key: []
-  # /discussions/reports/{qrid}:
-  #   put:
-  #     summary: Change the status of a question report
-  #     description: |
-  #       Use this operation to change the status of a question report.
+  /discussions/reports/{id}:
+    put:
+      summary: Change the status of a question report
+      description: |
+        Use this operation to change the status of a question report.
 
-  #       When a report on a question is accepted, the linked question should be
-  #       hidden so neither the question nor its answers and comments are visible.
-  #     # operationId: TODO: Set to the fully-qualified name of the function handling the operation
-  #     parameters:
-  #       - $ref: '#/components/parameters/QuestionReportIdPathParam'
-  #     requestBody:
-  #       content:
-  #         'application/json':
-  #           schema:
-  #             $ref: '#/components/schemas/ReportStatusChangeModel'
-  #           example:
-  #             status: ACCEPTED
-  #     responses:
-  #       '204':
-  #         $ref: '#/components/responses/ReportStatusChanged'
-  #       '404':
-  #         description: The question report does not exist.
-  #         content:
-  #           'text/plain':
-  #             schema:
-  #               type: string
-  #             example: 'The question report with qrid 25 does not exist.'
-  #     tags:
-  #       - moderation
-  #       - questions
-  #       - reports
-  #     security:
-  #       - user_token: []
-  #         api_key: []
+        When a report on a question is accepted, the linked question should be
+        hidden so neither the question nor its answers and comments are visible.
+      operationId: dms2223backend.presentation.rest.moderate.update_report_status
+      parameters:
+        - $ref: '#/components/parameters/QuestionReportIdPathParam'
+      requestBody:
+        content:
+          'application/json':
+            schema:
+              $ref: '#/components/schemas/ReportStatusChangeModel'
+            example:
+              status: ACCEPTED
+      responses:
+        '204':
+          $ref: '#/components/responses/ReportStatusChanged'
+        '404':
+          description: The question report does not exist.
+          content:
+            'text/plain':
+              schema:
+                type: string
+              example: 'The question report with qrid 25 does not exist.'
+      tags:
+        - moderation
+        - questions
+        - reports
+      security:
+        - user_token: []
+          api_key: []
   # /answers/{aid}/votes:
   #   post:
   #     summary: Upvote an answer
@@ -1349,7 +1349,7 @@ components:
         type: integer
       required: true
     QuestionReportIdPathParam:
-      name: qrid
+      name: id
       description: Question report identifier.
       in: path
       schema:

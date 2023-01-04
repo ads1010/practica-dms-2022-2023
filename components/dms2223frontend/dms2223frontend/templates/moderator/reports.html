@@ -6,7 +6,7 @@
 
 <style type = "text/css">
      tr,td{
-        border: 1px solid black;
+        border: 0px solid blue;
     }
 </style>
     <table class="fillwidth highlightrows" style="width:100%">
@@ -26,8 +26,20 @@
                         <li><p>Estado: {{ report['status']}}</p></li>
                     </ul>
                 </td>
-                    <td>{{submit_button('bluebg','Aceptar')}}
-                    {{submit_button('redbg','Rechazar')}}</td>
+                </tr>
+                <tr>
+                    <td  style="text-align:center;">
+                        <form action="/accept_report" method="post">
+                            {{ submit_button('bluebg','Aceptar',) }}
+                            <input type = "hidden" name = "idreport" value="{{report['id']}}">
+                            <input type = "hidden" name = "_method" value="PUT">
+                        </form>
+                        <form action="/deny_report" method="post">
+                            {{submit_button('redbg','Rechazar')}}
+                            <input type = "hidden" name = "idreport" value="{{report['id']}}">
+                            <input type = "hidden" name = "_method" value="PUT">
+                        </form>
+                    </td>
                 </tr>
             {% endfor %}
             </table>
@@ -44,9 +56,17 @@
                         <li><p>Fecha y hora del reporte: {{ reportanswer['timestamp']}}</p></li>
                         <li><p>Estado: {{ reportanswer['status']}}</p></li>
                     </ul>
-                </td>              
-                <td>{{submit_button('bluebg','Aceptar')}}
-                    {{submit_button('redbg','Rechazar')}}</td>
+                </td>   
+            </tr>
+            <tr>           
+                <td style="text-align:center;">
+                    <form>
+                        {{submit_button('bluebg','Aceptar')}}
+                    </form>
+                    <form>
+                        {{submit_button('redbg','Rechazar')}}
+                    </form>
+                </td>
             </tr>
       
             {% endfor %} 
@@ -65,8 +85,16 @@
                         <li><p>Estado: {{ reportcomment['status']}}</p></li>
                     </ul>
                 </td>  
-                  <td>{{submit_button('bluebg','Aceptar')}}
-                    {{submit_button('redbg','Rechazar')}}</td>
+            </tr>
+            <tr>
+                <td style="text-align:center;">
+                    <form>
+                    {{submit_button('bluebg','Aceptar')}}
+                    </form>
+                    <form>
+                    {{submit_button('redbg','Rechazar')}}
+                    </form>
+                </td>
             </tr>
       
             {% endfor %} 

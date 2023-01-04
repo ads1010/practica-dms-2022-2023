@@ -151,3 +151,9 @@ class WebQuestion():
         if response.get_content() is not None and isinstance(response.get_content(), list):
             return list(response.get_content())
         return []
+
+    def put_report(backend_service: BackendService, id: int) -> Optional[Dict]:
+        status ="ACCEPTED"
+        response: ResponseData = backend_service.put_report(session.get('token'), id,status)
+        WebUtils.flash_response_messages(response)
+        return response.get_content()

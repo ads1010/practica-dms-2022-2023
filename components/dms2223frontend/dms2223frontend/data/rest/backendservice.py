@@ -454,3 +454,23 @@ class BackendService():
                 response_data.add_message(response.content.decode('ascii'))
                 response_data.set_content([])
             return response_data
+
+    def put_report(self,token:Optional[str], id: int, status: str) -> ResponseData:
+            response_data: ResponseData = ResponseData()
+            response: requests.Response = requests.get(
+                self.__base_url() + f'/discussions/reports/{id}',
+                json={
+                    'status': status
+                },
+                headers={
+                    'Authorization': f'Bearer {token}',
+                    self.__apikey_header: self.__apikey_secret
+                }
+            )
+            response_data.set_successful(response.ok)
+            if response_data.is_successful():
+                response_data.set_content(response.json())
+            else:
+                response_data.add_message(response.content.decode('ascii'))
+                response_data.set_content([])
+            return response_data

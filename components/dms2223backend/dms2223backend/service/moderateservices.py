@@ -7,7 +7,8 @@ from dms2223backend.data.rest import AuthService
 from dms2223backend.data.db import Schema
 from dms2223backend.data.reportstatus import ReportStatus
 from dms2223backend.data.db.results import Report, Reportcomment , Reportanswer
-from dms2223backend.logic import ReportLogic
+from dms2223backend.logic import ReportLogic , DiscussionLogic
+from dms2223backend.data.db.results.discussion import Discussion
 
 
 class reportsServices():
@@ -192,3 +193,25 @@ class reportsServices():
         finally:
             schema.remove_session()
         return out
+
+    def update_report_status(schema: Schema, id: int , status: str):
+        session: Session = schema.new_session()
+
+        reporte : ReportLogic = ReportLogic.get_report_by_id(session , id)
+        reporte.status = ReportStatus[status]
+        if status == 'ACCEPTED':
+            reportsServices.quitar_discusion(schema. reporte.id)
+
+            session.add(reporte)
+            session.commit()
+
+            schema.remove_session()
+
+    def quitar_discusion(schema: Schema, id: int):
+        session : Session = schema.new_session()
+
+        discussion: Discussion = DiscussionLogic.get_discussion_by_id(session, id)
+
+        session.add(discussion)
+        session.commit()
+        schema.remove_session()
