@@ -84,3 +84,26 @@ def get_answer(discussionid: int) -> Tuple[Union[Dict, str], Optional[int]]:
             return ('A mandatory argument is missing', HTTPStatus.BAD_REQUEST.value)
 
     return (answer, HTTPStatus.OK.value)
+
+
+
+def vote_answer(id: int) -> Tuple[Dict, int]:
+    """vOTE an answer
+
+    Args:
+        - id: answer id.
+        
+
+    Returns:
+        - Tuple[Dict, str]]: On success, a tuple with the dictionary of the
+          answer data and a code 200 OK. On error, a description message and code:
+            - 400 BAD REQUEST when a mandatory argument is missing.
+    """
+    with current_app.app_context():
+        try:
+            vote = AnswersServices.vote_answer(id,current_app.db)
+            
+        except ValueError:
+            return ('A mandatory argument is missing', HTTPStatus.BAD_REQUEST.value)
+
+    return (HTTPStatus.OK.value)

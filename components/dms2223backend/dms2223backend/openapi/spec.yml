@@ -504,36 +504,36 @@ paths:
       security:
         - user_token: []
           api_key: []
-  # /answers/{aid}/votes:
-  #   post:
-  #     summary: Upvote an answer
-  #     description: |
-  #       This operation will cast a vote on an answer.
+  /answers/{id}/votes:
+    post:
+      summary: Upvote an answer
+      description: |
+        This operation will cast a vote on an answer.
 
-  #       The user voting will be automatically retrieved from the user token
-  #       against the authorization server.
-  #     # operationId: TODO: Set to the fully-qualified name of the function handling the operation
-  #     parameters:
-  #       - $ref: '#/components/parameters/AnswerIdPathParam'
-  #     responses:
-  #       '201':
-  #         $ref: '#/components/responses/VoteCast'
-  #       '404':
-  #         description: The answer does not exist.
-  #         content:
-  #           'text/plain':
-  #             schema:
-  #               type: string
-  #             example: 'The answer with aid 50 does not exist.'
-  #       '409':
-  #         $ref: '#/components/responses/VoteAlreadyCast'
-  #     tags:
-  #       - discussion
-  #       - answers
-  #       - votes
-  #     security:
-  #       - user_token: []
-  #         api_key: []
+        The user voting will be automatically retrieved from the user token
+        against the authorization server.
+      operationId: dms2223backend.presentation.rest.answer.vote_answer
+      parameters:
+        - $ref: '#/components/parameters/AnswerIdPathParam'
+      responses:
+        '201':
+          $ref: '#/components/responses/VoteCast'
+        '404':
+          description: The answer does not exist.
+          content:
+            'text/plain':
+              schema:
+                type: string
+              example: 'The answer with aid 50 does not exist.'
+        '409':
+          $ref: '#/components/responses/VoteAlreadyCast'
+      tags:
+        - discussion
+        - answers
+        - votes
+      security:
+        - user_token: []
+          api_key: []
   /answers/{id}/comments:
     get:
       summary: Gets the comments for an answer

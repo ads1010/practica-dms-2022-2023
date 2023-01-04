@@ -396,3 +396,22 @@ class DiscussionEndpoints():
             redirect_to = url_for('get_discussion_discussions_view')
 
         return redirect(redirect_to)
+
+    @staticmethod
+    def post_vote_answer(auth_service: AuthService, backend_service: BackendService):
+        """
+        Args:
+            - auth_service (AuthService): The authentication service.
+        
+        """
+        if not WebAuth.test_token(auth_service):
+            return redirect(url_for('get_login'))
+        if Role.DISCUSSION.name not in session['roles']:
+            return redirect(url_for('get_home'))
+
+       
+        answerid = request.form.get('answerid')
+
+        WebAnswer.vote_answer(backend_service,answerid)
+
+        return redirect(url_for('get_discussion_discussions'))

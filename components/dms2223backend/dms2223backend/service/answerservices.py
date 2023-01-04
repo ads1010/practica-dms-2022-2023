@@ -56,11 +56,14 @@ class AnswersServices():
         out: List[Dict] = []
         session: Session = schema.new_session()
         answers: List[Answer] = AnswerLogic.list_all_for_discussion(discussionid,session)
+        
         for answer in answers:
+            vote = AnswerLogic.get_vote(session, answer.id)
             out.append({
                 'id': answer.id, #type: ignore
                 'discussionid': answer.discussionid,
-                'content': answer.content
+                'content': answer.content,
+                'vote': vote
             })
         schema.remove_session()
         return out
@@ -71,8 +74,8 @@ class AnswersServices():
 
         Args:
             - username (str): Username string.
-            - id: Discussion id.
-            - token_info (Dict): A dictionary of information provided by the security schema handlers.
+            - discussionid: Discussion id.
+            
 
         Returns:
             - Dict: Answer of the discussion.
@@ -86,3 +89,23 @@ class AnswersServices():
         out['content'] = answer.content
         schema.remove_session()
         return out
+
+    @staticmethod
+    def vote_answer(aid: int, schema: Schema):
+        """Vote an Answer
+
+        Args:
+            
+            - aid: answer id.
+            
+
+        Returns:
+            - Dict: Answer of the discussion.
+        """
+        
+        session: Session = schema.new_session()
+        
+        vote: Answer = AnswerLogic.vote_answer(session, aid)
+   
+        schema.remove_session()
+        return True

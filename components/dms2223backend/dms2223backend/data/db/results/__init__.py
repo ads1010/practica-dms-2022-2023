@@ -7,3 +7,4 @@ from .comment import Comment
 from .report import Report
 from .reportanswer import Reportanswer
 from .reportcomment import Reportcomment
+from .voteAnswer import VoteAnswer

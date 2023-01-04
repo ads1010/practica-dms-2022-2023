@@ -6,6 +6,8 @@ from sqlalchemy.orm.session import Session  # type: ignore
 from dms2223backend.data.db.results import Answer
 from dms2223backend.data.db.resultsets import Answers, Comments
 
+from dms2223backend.data.db.results import VoteAnswer
+
 
 
 class AnswerLogic():
@@ -103,3 +105,48 @@ class AnswerLogic():
         # except Exception as ex:
         #     raise ex
         # return list_of_answers
+    
+    @staticmethod
+    def vote_answer(session: Session, aid: int ):
+        """Vote an Answer
+
+        Args:
+            
+            - aid: answer id.
+            
+
+        Returns:
+            - Dict: Answer of the discussion.
+        """
+        
+    
+
+        try:
+            vote: VoteAnswer = VoteAnswer(aid)
+            session.add(vote)
+            session.commit()
+        except Exception as ex:
+            raise ex
+        return vote
+
+    @staticmethod
+    def get_vote(session: Session ,answerid: int) :
+        """Return a answer of a certain question and user.
+
+        Args:
+            - session (Session): The session object.
+            - user (str): The user name string.
+            - id (int): The question id.
+
+        Returns:
+            - Answer: The Answer of the question.
+        """
+        try:
+            vote: int = Answers.get_vote(session, answerid)
+        except Exception as ex:
+            raise ex
+        return vote
+    
+    
+        
+        

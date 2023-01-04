@@ -6,7 +6,7 @@ from typing import List
 from sqlalchemy.exc import IntegrityError  # type: ignore
 from sqlalchemy.orm.session import Session  # type: ignore
 from sqlalchemy.orm.exc import NoResultFound  # type: ignore
-from dms2223backend.data.db.results import Answer
+from dms2223backend.data.db.results import Answer, VoteAnswer
 from dms2223backend.data.db.exc.discussionnotfounderror import DiscussionNotFoundError
 
 
@@ -106,3 +106,26 @@ class Answers():
             answerid=answerid
         )
         return query.all()
+
+    @staticmethod
+    def get_vote(session: Session, answerid: int) -> Answer:
+        """Return a answer of a certain question and user.
+
+        Args:
+            - session (Session): The session object.
+            - user (str): The user name string.
+            - id (int): The question id.
+
+        Raises:
+            - ValueError: If the username is missing.
+
+        Returns:
+            - Answer: Answer of the question.
+        """
+        if not answerid:
+            raise ValueError('All fields are required.')
+        query = session.query(VoteAnswer).filter_by(
+            aid=answerid
+        )
+        
+        return query.count()        

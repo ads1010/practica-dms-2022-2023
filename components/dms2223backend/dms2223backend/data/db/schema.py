@@ -6,7 +6,7 @@ from sqlalchemy.engine import Engine  # type: ignore
 from sqlalchemy.orm import sessionmaker, scoped_session, registry  # type: ignore
 from sqlalchemy.orm.session import Session  # type: ignore
 from dms2223backend.data.config import BackendConfiguration
-from dms2223backend.data.db.results import Discussion, Answer, Comment, Report , Reportanswer , Reportcomment
+from dms2223backend.data.db.results import Discussion, Answer, Comment, Report , Reportanswer , Reportcomment, VoteAnswer
 
 
 # Required for SQLite to enforce FK integrity when supported
@@ -52,6 +52,7 @@ class Schema():
         Report.map(self.__registry)
         Reportanswer.map(self.__registry)
         Reportcomment.map(self.__registry)
+        VoteAnswer.map(self.__registry)
         self.__registry.metadata.create_all(self.__create_engine)
 
     def new_session(self) -> Session:

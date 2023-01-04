@@ -125,6 +125,11 @@ def get_discussion_discussions_comment():
 def post_discussion_discussions_comment():
     return DiscussionEndpoints.post_discussion_discussions_comment(auth_service, backend_service)
 
+@app.route("/discussion/discussions/vote_answer", methods=['POST'])
+def post_vote_answer():
+    return DiscussionEndpoints.post_vote_answer(auth_service, backend_service)
+
+
 @app.route("/moderator", methods=['GET'])
 def get_moderator():
     return ModeratorEndpoints.get_moderator(auth_service)
@@ -152,6 +157,8 @@ def get_moderator_discussions_view():
 @app.route("/moderator/moderator/view", methods=['GET'])
 def get_moderator_moderator_view():
     return ModeratorEndpoints.get_moderator_moderator_view(auth_service)
+
+
 
 
 @app.route("/admin", methods=['GET'])
