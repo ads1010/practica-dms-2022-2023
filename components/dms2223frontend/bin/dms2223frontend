@@ -129,6 +129,10 @@ def post_discussion_discussions_comment():
 def post_vote_answer():
     return DiscussionEndpoints.post_vote_answer(auth_service, backend_service)
 
+@app.route("/discussion/discussions/vote_comment", methods=['POST'])
+def post_vote_comment():
+    return DiscussionEndpoints.post_vote_comment(auth_service, backend_service)
+
 
 @app.route("/moderator", methods=['GET'])
 def get_moderator():

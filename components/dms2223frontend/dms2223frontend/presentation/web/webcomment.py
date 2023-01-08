@@ -49,3 +49,9 @@ class WebComment():
         response: ResponseData = backend_service.get_comment(session.get('token'), id)
         WebUtils.flash_response_messages(response)
         return response.get_content()
+
+    @staticmethod
+    def vote_comment(backend_service: BackendService, commentid: int) -> Optional[Dict]:
+        response: ResponseData = backend_service.vote_comment(session.get('token'), commentid)
+        WebUtils.flash_response_messages(response)
+        return response.get_content()

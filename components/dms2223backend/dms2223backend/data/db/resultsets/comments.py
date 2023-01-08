@@ -4,7 +4,7 @@
 from typing import List
 from sqlalchemy.exc import IntegrityError  # type: ignore
 from sqlalchemy.orm.session import Session  # type: ignore
-from dms2223backend.data.db.results import Comment
+from dms2223backend.data.db.results import Comment, VoteComment
 from dms2223backend.data.db.exc import DiscussionNotFoundError
 
 class Comments():
@@ -121,4 +121,27 @@ class Comments():
             discussionid=discussionid, answerid=answerid
         )
         return query.all()
+        
+    @staticmethod
+    def get_vote(session: Session, commentid: int) -> Comment:
+        """Return a answer of a certain question and user.
+
+        Args:
+            - session (Session): The session object.
+            - user (str): The user name string.
+            - id (int): The question id.
+
+        Raises:
+            - ValueError: If the username is missing.
+
+        Returns:
+            - Answer: Answer of the question.
+        """
+        if not commentid:
+            raise ValueError('All fields are required.')
+        query = session.query(VoteComment).filter_by(
+            cid=commentid
+        )
+        
+        return query.count() 
         

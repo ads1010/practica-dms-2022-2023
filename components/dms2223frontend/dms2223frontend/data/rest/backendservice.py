@@ -501,3 +501,29 @@ class BackendService():
             else:
                 response_data.add_message(response.content.decode('ascii'))
             return response_data
+
+    def vote_comment(self, token: Optional[str], commentid: int) -> ResponseData:
+            """ Vote an Comment.
+
+            Args:
+                - token (Optional[str]): The discussion session token.
+                - answerid: A int with the answer id.
+                -
+
+            Returns:
+                
+            """
+            response_data: ResponseData = ResponseData()
+            response: requests.Response = requests.post(
+                self.__base_url() + f'/comments/{commentid}/votes', 
+                headers={
+                    'Authorization': f'Bearer {token}',
+                    self.__apikey_header: self.__apikey_secret
+                }
+            )
+            response_data.set_successful(response.ok)
+            if response_data.is_successful():
+                response_data.set_content(response.json())
+            else:
+                response_data.add_message(response.content.decode('ascii'))
+            return response_data

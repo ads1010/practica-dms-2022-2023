@@ -103,3 +103,26 @@ def get_comment(discussionid: int, answerid: int) -> Tuple[Union[Dict, str], Opt
             return ('A mandatory argument is missing', HTTPStatus.BAD_REQUEST.value)
 
     return (comment, HTTPStatus.OK.value)
+
+
+def vote_comment(id: int) -> Tuple[Dict, int]:
+    """vOTE an comment
+
+    Args:
+        - id: comment id.
+        
+
+    Returns:
+        - Tuple[Dict, str]]: On success, a tuple with the dictionary of the
+          answer data and a code 200 OK. On error, a description message and code:
+            - 400 BAD REQUEST when a mandatory argument is missing.
+    """
+    with current_app.app_context():
+        try:
+            vote = CommentsServices.vote_comment(id,current_app.db)
+            
+            
+        except ValueError:
+            return ('A mandatory argument is missing', HTTPStatus.BAD_REQUEST.value)
+
+    return (HTTPStatus.OK.value)

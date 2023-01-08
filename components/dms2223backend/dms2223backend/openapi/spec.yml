@@ -816,36 +816,36 @@ paths:
   #     security:
   #       - user_token: []
   #         api_key: []
-  # /comments/{cid}/votes:
-  #   post:
-  #     summary: Upvote a comment
-  #     description: |
-  #       This operation will cast a vote on a comment.
+  /comments/{id}/votes:
+    post:
+      summary: Upvote a comment
+      description: |
+        This operation will cast a vote on a comment.
 
-  #       The user voting will be automatically retrieved from the user token
-  #       against the authorization server.
-  #     # operationId: TODO: Set to the fully-qualified name of the function handling the operation
-  #     parameters:
-  #       - $ref: '#/components/parameters/CommentIdPathParam'
-  #     responses:
-  #       '201':
-  #         $ref: '#/components/responses/VoteCast'
-  #       '404':
-  #         description: The comment does not exist.
-  #         content:
-  #           'text/plain':
-  #             schema:
-  #               type: string
-  #             example: 'The comment with cid 75 does not exist.'
-  #       '409':
-  #         $ref: '#/components/responses/VoteAlreadyCast'
-  #     tags:
-  #       - discussion
-  #       - comments
-  #       - votes
-  #     security:
-  #       - user_token: []
-  #         api_key: []
+        The user voting will be automatically retrieved from the user token
+        against the authorization server.
+      operationId: dms2223backend.presentation.rest.comment.vote_comment
+      parameters:
+        - $ref: '#/components/parameters/CommentIdPathParam'
+      responses:
+        '201':
+          $ref: '#/components/responses/VoteCast'
+        '404':
+          description: The comment does not exist.
+          content:
+            'text/plain':
+              schema:
+                type: string
+              example: 'The comment with cid 75 does not exist.'
+        '409':
+          $ref: '#/components/responses/VoteAlreadyCast'
+      tags:
+        - discussion
+        - comments
+        - votes
+      security:
+        - user_token: []
+          api_key: []
 
   /comments/{id}/reports:
     post:

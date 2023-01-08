@@ -6,6 +6,8 @@ from sqlalchemy.orm import relationship  # type: ignore
 from dms2223backend.data.db.results.resultbase import ResultBase
 from dms2223backend.data.db.results.reportcomment import Reportcomment
 
+from dms2223backend.data.db.results.voteComment import VoteComment
+
 class Comment(ResultBase):
     """ Definition and storage of comment ORM records.
     """
@@ -53,5 +55,6 @@ class Comment(ResultBase):
             - Dict: A dictionary with the mapping properties.
         """
         return {
-            'reportcomment': relationship(Reportcomment,backref='comment')
+            'reportcomment': relationship(Reportcomment,backref='comment'),
+            'vote': relationship(VoteComment,backref="answer" )
         }

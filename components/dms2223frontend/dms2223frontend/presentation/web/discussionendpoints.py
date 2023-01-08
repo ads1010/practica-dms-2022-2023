@@ -341,6 +341,7 @@ class DiscussionEndpoints():
         return render_template('discussion/discussions/reportcomment.html', name=name, roles=session['roles'],answerid = answerid , redirect_to=redirect_to,
         commentid = commentid ,comments=WebComment.list_comments(backend_service,discussionid))
 
+    @staticmethod
     def post_discussion_discussions_reportcomment(auth_service: AuthService, backend_service: BackendService) -> Union[Response, Text]:
         """ Handles the POST requests to the discussion root endpoint.
 
@@ -369,6 +370,7 @@ class DiscussionEndpoints():
 
         return redirect(redirect_to)
 
+    @staticmethod
     def post_discussion_discussions_reportanswer(auth_service: AuthService, backend_service: BackendService) -> Union[Response, Text]:
         """ Handles the POST requests to the discussion root endpoint.
 
@@ -413,5 +415,24 @@ class DiscussionEndpoints():
         answerid = request.form.get('answerid')
 
         WebAnswer.vote_answer(backend_service,answerid)
+
+        return redirect(url_for('get_discussion_discussions'))
+
+    @staticmethod
+    def post_vote_comment(auth_service: AuthService, backend_service: BackendService):
+        """
+        Args:
+            - auth_service (AuthService): The authentication service.
+        
+        """
+        if not WebAuth.test_token(auth_service):
+            return redirect(url_for('get_login'))
+        if Role.DISCUSSION.name not in session['roles']:
+            return redirect(url_for('get_home'))
+
+       
+        commentid = request.form.get('commentid')
+
+        WebComment.vote_comment(backend_service,commentid)
 
         return redirect(url_for('get_discussion_discussions'))

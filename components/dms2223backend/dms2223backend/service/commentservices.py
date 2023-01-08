@@ -54,11 +54,13 @@ class CommentsServices():
         session: Session = schema.new_session()
         comments: List[Comment] = CommentLogic.list_all_for_discussion(discussionid, session)
         for comment in comments:
+            vote = CommentLogic.get_vote(session, comment.id)
             out.append({
                 'id': comment.id, #type: ignore
                 'discussionid': comment.discussionid,
                 'answerid': comment.answerid,
-                'content': comment.content
+                'content': comment.content,
+                'vote': vote
             })
         schema.remove_session()
         return out
@@ -108,3 +110,23 @@ class CommentsServices():
         out['content'] = comment.content
         schema.remove_session()
         return out
+
+    @staticmethod
+    def vote_comment(cid: int, schema: Schema):
+        """Vote an cooment
+
+        Args:
+            
+            - cid: comment id.
+            
+
+        Returns:
+            - Dict: Answer of the discussion.
+        """
+        
+        session: Session = schema.new_session()
+        
+        vote: Comment = CommentLogic.vote_comment(session, cid)
+   
+        schema.remove_session()
+        return True
