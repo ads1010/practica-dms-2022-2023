@@ -1,6 +1,6 @@
 {% extends "discussion.html" %}
 {% from "macros/buttons.html" import button, submit_button %}
-{% block contentsubheading %}Create new report{% endblock %}
+{% block contentsubheading %}Crear nuevo reporte{% endblock %}
 {% block discussioncontent %}
     <form action="/discussion/discussions/report" method="post">
         <input type="hidden" name="redirect_to" value="{{ redirect_to }}" />
@@ -8,7 +8,7 @@
 
         <dl>
             <h3><dt>{{ discussion }}</dt></h3>
-        {{discussionid}}
+       
 		<dt><p>Cuentanos que sucede</p></dt>
             <dd>
                 <textarea name="reason" rows="15" cols="100"></textarea>

@@ -31,9 +31,9 @@ class reportsServices():
         try:
             report = ReportLogic.get_report_by_id(session, id)
             if report is not None:
-                out['id'] = report.id
-                out['title'] = report.title      
-                out['content'] = report.content
+                out['id'] = report.id # type: ignore
+                out['title'] = report.title # type: ignore
+                out['content'] = report.content # type: ignore
                # out['user'] = report.user
                 
         except Exception as ex:
@@ -57,11 +57,11 @@ class reportsServices():
         reports: List[List] = ReportLogic.list_all(session)
         for report in reports:
             out.append({
-                'id': report.id,
-                'discussionid': report.discussionid,
-                'reason': report.reason,
-                'timestamp': report.timestamp,
-                'status': report.status.name
+                'id': report.id, # type: ignore
+                'discussionid': report.discussionid, # type: ignore
+                'reason': report.reason, # type: ignore
+                'timestamp': report.timestamp, # type: ignore
+                'status': report.status.name # type: ignore
                 #'user': report.user
             })
         schema.remove_session()
@@ -82,12 +82,12 @@ class reportsServices():
         reports: List[List] = ReportLogic.list_all_report_answer(session)
         for report in reports:
             out.append({
-                'id': report.id,
-                'answerid': report.answerid,
-                'reason': report.reason,
-                'timestamp': report.timestamp,
-                'status': report.status.name
-                #'user': report.user
+                'id': report.id, # type: ignore
+                'answerid': report.answerid, # type: ignore
+                'reason': report.reason, # type: ignore
+                'timestamp': report.timestamp, # type: ignore
+                'status': report.status.name # type: ignore
+                #'user': report.user 
             })
         schema.remove_session()
         return out
@@ -107,11 +107,11 @@ class reportsServices():
         reports: List[List] = ReportLogic.list_all_report_comments(session)
         for report in reports:
             out.append({
-                'id': report.id,
-                'commentid': report.commentid,
-                'reason': report.reason,
-                'timestamp': report.timestamp,
-                'status': report.status.name
+                'id': report.id, # type: ignore
+                'commentid': report.commentid, # type: ignore
+                'reason': report.reason, # type: ignore
+                'timestamp': report.timestamp, # type: ignore
+                'status': report.status.name # type: ignore
                 #'user': report.user
             })
         schema.remove_session()
@@ -133,11 +133,11 @@ class reportsServices():
         out: Dict = {}
         try:
             new_report: Report = ReportLogic.create(session, id, reason)
-            out['id'] = new_report.id#type: ignore
+            out['id'] = new_report.id #type: ignore
             out['reason'] = new_report.reason
-            out['tipo'] = new_report.tipo
+            out['tipo'] = new_report.tipo # type: ignore
             out['timestamp'] = new_report.timestamp
-            out['discussionid'] = new_report.discussionid#type: ignore
+            out['discussionid'] = new_report.discussionid
             out['status'] = new_report.status.name
             #out['user'] = new_report.user
 
@@ -163,10 +163,10 @@ class reportsServices():
         out: Dict = {}
         try:
             new_report: Reportcomment = ReportLogic.create_report_comment(session, id, reason)
-            out['id'] = new_report.id#type: ignore
+            out['id'] = new_report.id #type: ignore
             out['reason'] = new_report.reason
-            out['tipo'] = new_report.tipo
-            out['commentid'] = new_report.commentid#type: ignore
+            out['tipo'] = new_report.tipo # type: ignore
+            out['commentid'] = new_report.commentid
             out['status'] = new_report.status.name
             #out['user'] = new_report.user
 
@@ -192,10 +192,10 @@ class reportsServices():
         out: Dict = {}
         try:
             new_report: Reportanswer = ReportLogic.create_report_answer(session, id, reason)
-            out['id'] = new_report.id#type: ignore
+            out['id'] = new_report.id #type: ignore
             out['reason'] = new_report.reason
-            out['tipo'] = new_report.tipo
-            out['answerid'] = new_report.answerid#type: ignore
+            out['tipo'] = new_report.tipo # type: ignore
+            out['answerid'] = new_report.answerid 
             out['status'] = new_report.status.name
             #out['user'] = new_report.user
 
