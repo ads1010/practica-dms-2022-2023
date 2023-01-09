@@ -1019,9 +1019,12 @@ components:
               type: string
             owner:
               $ref: '#/components/schemas/UserCoreModel'
+            timestamp:
+              type: number
           required:
             - title
             - content
+            - timestamp
 
     QuestionCreationModel:
       type: object
@@ -1058,6 +1061,8 @@ components:
         #   type: number
         content:
           type: string
+        timestamp:
+          type: number
         # owner:
         #   $ref: '#/components/schemas/UserCoreModel'
         # votes:
@@ -1079,6 +1084,7 @@ components:
         #- id
         #- timestamp
         - content
+        - timestamp
         #- owner
     AnswerCreationModel:
       type: object
@@ -1103,6 +1109,8 @@ components:
       properties:
         content:
             type: string
+        timestamp:
+          type: number
         # id:
         #   type: integer
         # aid:
@@ -1165,7 +1173,7 @@ components:
         # - owner
         # - id
         # - aid
-        # - timestamp
+        - timestamp
         # - content
         # - sentiment
         # - owner

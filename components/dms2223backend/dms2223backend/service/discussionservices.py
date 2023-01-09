@@ -35,7 +35,8 @@ class DiscussionsServices():
                 'id': discussion.id,#type: ignore
                 'title': discussion.title,
                 'content': discussion.content,
-                'answered': answered})
+                'answered': answered,
+                'timestamp': discussion.timestamp})
 
         except Exception as ex:
             raise ex
@@ -66,7 +67,8 @@ class DiscussionsServices():
                 'id': discussion.id,#type: ignore
                 'title': discussion.title,
                 'content': discussion.content,
-                'answered': answered
+                'answered': answered,
+                'timestamp': discussion.timestamp
             })
         schema.remove_session()
         return out
@@ -91,6 +93,7 @@ class DiscussionsServices():
             out['id'] = new_discussion.id#type: ignore
             out['title'] = new_discussion.title
             out['content'] = new_discussion.content
+            out['timestamp'] = new_discussion.timestamp
 
         except Exception as ex:
             raise ex

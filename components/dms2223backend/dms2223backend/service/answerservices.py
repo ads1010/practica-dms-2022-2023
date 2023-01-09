@@ -33,6 +33,7 @@ class AnswersServices():
             out['id'] = new_answer.id #type: ignore
             out['discussionid'] = new_answer.discussionid
             out['content'] = new_answer.content
+            out['timestamp'] = new_answer.timestamp
 
         except Exception as ex:
             raise ex
@@ -63,7 +64,8 @@ class AnswersServices():
                 'id': answer.id, #type: ignore
                 'discussionid': answer.discussionid,
                 'content': answer.content,
-                'vote': vote
+                'vote': vote,
+                'timestamp': answer.timestamp
             })
         schema.remove_session()
         return out
@@ -87,6 +89,7 @@ class AnswersServices():
         out['id'] = answer.id #type: ignore
         out['discussionid'] = answer.discussionid
         out['content'] = answer.content
+        out['timestamp'] = answer.timestamp
         schema.remove_session()
         return out
 

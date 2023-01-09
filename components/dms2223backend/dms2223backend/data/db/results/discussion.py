@@ -2,7 +2,7 @@
 """
 
 from typing import Dict
-from sqlalchemy import Table, MetaData, Column, String , Integer, TIME, DATE # type: ignore
+from sqlalchemy import Table, MetaData, Column, String , Integer, DateTime, func # type: ignore
 from sqlalchemy.orm import relationship  # type: ignore
 from dms2223backend.data.db.results.resultbase import ResultBase
 from dms2223backend.data.db.results.answer import Answer
@@ -26,6 +26,7 @@ class Discussion(ResultBase):
       
         self.title: str = title
         self.content: str = content
+        self.timestamp: DateTime
 
     @staticmethod
     def _table_definition(metadata: MetaData) -> Table:
@@ -43,7 +44,8 @@ class Discussion(ResultBase):
             metadata,
             Column('id', Integer, autoincrement='auto', primary_key=True),
             Column('title', String(50), nullable=False),
-            Column('content', String(250), nullable=False)
+            Column('content', String(250), nullable=False),
+            Column('timestamp', DateTime, nullable=False, default = func.now())
             #Column('time', TIME, nullable = False),
             #Column('user', String(15), nullable=False),
             #Column('date', DATE, nullable = False)

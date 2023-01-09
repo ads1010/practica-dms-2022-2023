@@ -1,7 +1,7 @@
 """Comment Class Module
 """
 from typing import Dict
-from sqlalchemy import Table, MetaData, Column, String , Integer, ForeignKey # type: ignore
+from sqlalchemy import Table, MetaData, Column, String , Integer, ForeignKey, DateTime, func # type: ignore
 from sqlalchemy.orm import relationship  # type: ignore
 from dms2223backend.data.db.results.resultbase import ResultBase
 from dms2223backend.data.db.results.reportcomment import Reportcomment
@@ -25,6 +25,7 @@ class Comment(ResultBase):
         self.discussionid: int = discussionid
         self.answerid: int = answerid
         self.content: str = content
+        self.timestamp: DateTime
 
 
     @staticmethod
@@ -44,7 +45,8 @@ class Comment(ResultBase):
             Column('id', Integer, autoincrement='auto', primary_key=True),
             Column('discussionid', Integer, nullable=False),
             Column('answerid', Integer, ForeignKey('answers.id'), nullable=False),
-            Column('content', String(250), nullable=False)
+            Column('content', String(250), nullable=False),
+            Column('timestamp', DateTime, nullable=False, default = func.now())
         )
 
     @staticmethod
