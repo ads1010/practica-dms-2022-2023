@@ -26,7 +26,6 @@ class Reportcomment(ResultBase):
         self.commentid: int = commentid
         self.timestamp: DateTime
         self.status: ReportStatus = status
-        #self.user: str = user
 
     @staticmethod
     def _table_definition(metadata: MetaData) -> Table:
@@ -47,5 +46,6 @@ class Reportcomment(ResultBase):
             Column('commentid', Integer, ForeignKey('comments.id'), nullable=False),
             Column('status',Enum(ReportStatus),default = ReportStatus.PENDING ,nullable = False),
             Column('timestamp', DateTime, nullable=False, default = func.now())
-            #Column('user', String(50), nullable=False),
+            #Column('user', String(15), nullable=False),
+            #Column('date', DATE, nullable = False)
         )

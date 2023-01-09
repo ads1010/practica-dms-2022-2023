@@ -2,7 +2,7 @@
 """
 
 from typing import Dict
-from sqlalchemy import Table, MetaData, Column, String , Integer ,ForeignKey , DateTime, func# type: ignore
+from sqlalchemy import Table, MetaData, Column, String , Integer ,ForeignKey # type: ignore
 from sqlalchemy.orm import relationship  # type: ignore
 from dms2223backend.data.db.results.resultbase import ResultBase
 from dms2223backend.data.db.results.reportanswer import Reportanswer
@@ -14,7 +14,7 @@ class Answer(ResultBase):
     """ Definition and storage of answer ORM records.
     """
 
-    def __init__(self, discussionid: int, content: str, user: str):
+    def __init__(self, discussionid: int, content: str):
         """ Constructor method.
 
         Initializes a answer record.
@@ -28,8 +28,6 @@ class Answer(ResultBase):
         self.discussionid: int = discussionid
         #self.user: str = user
         self.content: str = content
-        self.timestamp: DateTime
-        self.user: str = user
         
         
     @staticmethod
@@ -49,9 +47,8 @@ class Answer(ResultBase):
             metadata,
             Column('id', Integer, autoincrement='auto', primary_key=True),
             Column('discussionid', Integer, ForeignKey('discussions.id'), nullable=False),
-            Column('content', String(250), nullable=False),
-            Column('timestamp', DateTime, nullable=False, default = func.now()),
-            Column('user', String(50), nullable=False)
+            Column('content', String(250), nullable=False)
+          
         )
 
     @staticmethod

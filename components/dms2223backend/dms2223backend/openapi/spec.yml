@@ -1017,15 +1017,11 @@ components:
           properties:
             contentSS:
               type: string
-            user:
+            owner:
               $ref: '#/components/schemas/UserCoreModel'
-            timestamp:
-              type: number
           required:
             - title
             - content
-            - timestamp
-            - user
 
     QuestionCreationModel:
       type: object
@@ -1054,27 +1050,48 @@ components:
     AnswerFullModel:
       type: object
       properties:
+        #aid:
+        #  type: integer
+        #id:
+        #  type: integer
+        # timestamp:
+        #   type: number
         content:
           type: string
-        timestamp:
-          type: number
-        user:
-          $ref: '#/components/schemas/UserCoreModel'
-                  
+        # owner:
+        #   $ref: '#/components/schemas/UserCoreModel'
+        # votes:
+        #   type: integer
+        #   minimum: 0
+        #   default: 0
+        #   nullable: false
+        # user_votes:
+        #   type: object
+        #   additionalProperties:
+        #     type: boolean
+        
         comments:
           $ref: '#/components/schemas/CommentsListModel'
 
       
       required:
+        #- aid
+        #- id
+        #- timestamp
         - content
-        - timestamp
-        - user
+        #- owner
     AnswerCreationModel:
       type: object
       properties:
+        #aid:
+        #  type: integer
+        #id:
+        #  type: integer
         content:
           type: string
       required:
+        #- aid
+        #- id
         - content
     AnswersListModel:
       type: array
@@ -1086,8 +1103,6 @@ components:
       properties:
         content:
             type: string
-        timestamp:
-          type: number
         # id:
         #   type: integer
         # aid:
@@ -1102,8 +1117,8 @@ components:
         #     - POSITIVE
         #     - NEUTRAL
         #     - NEGATIVE
-        user:
-          $ref: '#/components/schemas/UserCoreModel'
+        # owner:
+        #   $ref: '#/components/schemas/UserCoreModel'
         # votes:
         #   type: integer
         #   minimum: 0
@@ -1150,8 +1165,10 @@ components:
         # - owner
         # - id
         # - aid
-        - timestamp
-        - user
+        # - timestamp
+        # - content
+        # - sentiment
+        # - owner
     CommentCreationModel:
       type: object
       properties:
@@ -1173,6 +1190,8 @@ components:
         #   default: NEUTRAL
       required:
         - content
+        #- sentiment
+        #- sentiment
     CommentsListModel:
       type: array
       items:
@@ -1193,7 +1212,7 @@ components:
             - PENDING
             - ACCEPTED
             - REJECTED
-        user:
+        owner:
           $ref: '#/components/schemas/UserCoreModel'
         timestamp:
           type: number
@@ -1202,8 +1221,8 @@ components:
         - qid
         - reason
         - status
+        - owner
         - timestamp
-        - user
     QuestionReportCreationModel:
       type: object
       properties:
@@ -1231,7 +1250,7 @@ components:
             - PENDING
             - ACCEPTED
             - REJECTED
-        user:
+        owner:
           $ref: '#/components/schemas/UserCoreModel'
         timestamp:
           type: number
@@ -1240,8 +1259,8 @@ components:
         - aid
         - reason
         - status
+        - owner
         - timestamp
-        - user
     AnswerReportCreationModel:
       type: object
       properties:
@@ -1269,7 +1288,7 @@ components:
             - PENDING
             - ACCEPTED
             - REJECTED
-        user:
+        owner:
           $ref: '#/components/schemas/UserCoreModel'
         timestamp:
           type: number
@@ -1278,8 +1297,8 @@ components:
         - cid
         - reason
         - status
+        - owner
         - timestamp
-        - user
     CommentReportCreationModel:
       type: object
       properties:
@@ -1393,6 +1412,7 @@ components:
       scheme: bearer
       bearerFormat: JWT
       x-bearerInfoFunc: dms2223backend.presentation.rest.security.verify_token
+      #x-bearerInfoFunc: dms2223auth.presentation.rest.security.verify_token
     api_key:
       description: |
         Secret shared between both the requestor and the service.

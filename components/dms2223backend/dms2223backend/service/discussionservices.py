@@ -35,10 +35,7 @@ class DiscussionsServices():
                 'id': discussion.id,#type: ignore
                 'title': discussion.title,
                 'content': discussion.content,
-                'answered': answered,
-                'timestamp': discussion.timestamp,
-                'user': discussion.user
-                })
+                'answered': answered})
 
         except Exception as ex:
             raise ex
@@ -69,15 +66,13 @@ class DiscussionsServices():
                 'id': discussion.id,#type: ignore
                 'title': discussion.title,
                 'content': discussion.content,
-                'answered': answered,
-                'timestamp': discussion.timestamp,
-                'user': discussion.user
+                'answered': answered
             })
         schema.remove_session()
         return out
 
     @staticmethod
-    def create_discussion(title:str, content: str, user: str,schema: Schema) -> Dict:
+    def create_discussion(title:str, content: str, schema: Schema) -> Dict:
         """Creates a discussion.
 
         Args:
@@ -91,13 +86,11 @@ class DiscussionsServices():
         session: Session = schema.new_session()
         out: Dict = {}
         try:
-            new_discussion: Discussion = DiscussionLogic.create(session, title, content, user)
+            new_discussion: Discussion = DiscussionLogic.create(session, title, content)
             
             out['id'] = new_discussion.id#type: ignore
             out['title'] = new_discussion.title
             out['content'] = new_discussion.content
-            out['timestamp'] = new_discussion.timestamp
-            out['user'] = new_discussion.user
 
         except Exception as ex:
             raise ex

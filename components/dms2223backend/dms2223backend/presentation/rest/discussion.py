@@ -19,7 +19,7 @@ def list_discussions() -> Tuple[List[Dict], Optional[int]]:
     return (discussions, HTTPStatus.OK.value)
 
 
-def create_discussion(body: Dict, token_info: dict) -> Tuple[Union[Dict, str], Optional[int]]:
+def create_discussion(body: Dict) -> Tuple[Union[Dict, str], Optional[int]]:
     """Creates a discussion if the requestor has the discussion role.
 
     Args:
@@ -34,10 +34,9 @@ def create_discussion(body: Dict, token_info: dict) -> Tuple[Union[Dict, str], O
             - 409 CONFLICT if an existing user already has all or part of the unique user's data.
     """
     with current_app.app_context():
-        user = token_info['user_token']['username']
         try:
             discussion: Dict = DiscussionsServices.create_discussion(
-                body['title'], body['content'], user, current_app.db
+                body['title'], body['content'],current_app.db
             )
         except ValueError:
             return ('A mandatory argument is missing', HTTPStatus.BAD_REQUEST.value)

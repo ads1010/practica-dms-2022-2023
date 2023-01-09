@@ -32,8 +32,6 @@ class CommentsServices():
             out['discussionid'] = new_comment.discussionid 
             out['answerid'] = new_comment.answerid
             out['content'] = new_comment.content
-            out['timestamp'] = new_comment.timestamp
-            out['user'] = new_comment.user
 
         except Exception as ex:
             raise ex
@@ -62,9 +60,7 @@ class CommentsServices():
                 'discussionid': comment.discussionid,
                 'answerid': comment.answerid,
                 'content': comment.content,
-                'vote': vote,
-                'timestamp': comment.timestamp,
-                'user': comment.user
+                'vote': vote
             })
         schema.remove_session()
         return out
@@ -88,9 +84,7 @@ class CommentsServices():
                 'id': comment.id, #type: ignore
                 'discussionid': comment.discussionid,
                 'answerid': comment.answerid,
-                'content': comment.content,
-                'timestamp': comment.timestamp,
-                'user': comment.user
+                'content': comment.content
             })
         schema.remove_session()
         return out
@@ -114,8 +108,6 @@ class CommentsServices():
         out['discussionid'] = comment.discussionid #type: ignore
         out['answerid'] = comment.answerid
         out['content'] = comment.content
-        out['timestamp'] = comment.timestamp
-        out['user'] = comment.user
         schema.remove_session()
         return out
 
