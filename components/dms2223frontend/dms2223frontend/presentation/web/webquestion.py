@@ -27,6 +27,7 @@ class WebQuestion():
             return list(response.get_content())
         return []
 
+    @staticmethod
     def create_report(backend_service: BackendService,id :Optional[str],reason: Optional[str])-> Optional[Dict]:
         """ Creates a discussion in the backend service.
 
@@ -43,6 +44,7 @@ class WebQuestion():
         WebUtils.flash_response_messages(response)
         return response.get_content()
 
+    @staticmethod
     def create_reportcomment(backend_service: BackendService,id :Optional[str],reason: Optional[str])-> Optional[Dict]:
         """ Creates a discussion in the backend service.
 
@@ -59,6 +61,7 @@ class WebQuestion():
         WebUtils.flash_response_messages(response)
         return response.get_content()
 
+    @staticmethod
     def create_reportanswer(backend_service: BackendService,id :Optional[str],reason: Optional[str])-> Optional[Dict]:
         """ Creates a discussion in the backend service.
 
@@ -152,6 +155,7 @@ class WebQuestion():
             return list(response.get_content())
         return []
 
+    @staticmethod
     def put_report(backend_service: BackendService, id: int) -> Optional[Dict]:
         status ="ACCEPTED"
         response: ResponseData = backend_service.put_report(session.get('token'), id,status)

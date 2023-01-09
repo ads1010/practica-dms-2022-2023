@@ -92,6 +92,7 @@ class reportsServices():
         schema.remove_session()
         return out
 
+    @staticmethod
     def list_reports_comments(schema: Schema) -> List[Dict]: 
         """Lists the existing reports.
 
@@ -146,6 +147,7 @@ class reportsServices():
             schema.remove_session()
         return out
 
+    @staticmethod
     def create_report_comment(id:int, reason: str  ,schema: Schema) -> Dict:
         """Creates a report.
 
@@ -174,6 +176,7 @@ class reportsServices():
             schema.remove_session()
         return out
 
+    @staticmethod
     def create_report_answer(id:int, reason: str  ,schema: Schema) -> Dict:
         """Creates a report.
 
@@ -202,6 +205,7 @@ class reportsServices():
             schema.remove_session()
         return out
 
+    @staticmethod
     def update_report_status(schema: Schema, id: int , status: str):
         session: Session = schema.new_session()
 
@@ -215,6 +219,7 @@ class reportsServices():
 
             schema.remove_session()
 
+    @staticmethod
     def quitar_discusion(schema: Schema, id: int):
         session : Session = schema.new_session()
 
