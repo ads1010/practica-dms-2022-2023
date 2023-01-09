@@ -69,6 +69,7 @@ Una vez ejecutados estos comandos se puede ver como se han ejecutado y detenido 
   - [Helper scripts](#helper-scripts)
   - [GitHub workflows and badges](#github-workflows-and-badges)
   - [Línea futura](#línea-futura)
+    - [Patrón de diseño a aplicar en la línea futura](#patrón-de-diseño-a-aplicar-en-la-línea-futura)
 
 ## Manual
 Para la primera entrega teniendo en cuenta que será solo la parte del front-end tendremos las siguientes funcionalidades siendo el usuario "admin".
@@ -267,18 +268,18 @@ This project includes some workflows configured in `.github/workflows`. They wil
 ## Línea futura
 
 Podemos llegar a pensar en numerosas mejoras futuras para nuestra aplicación como pueden ser:
-En el que el moderador pueda dar toques de atención a los usuarios llegando asi a bloquearlos si estos son reicidentes (dejando de tener acceso a nuestra aplicación) 
+Toques de atención a los usuarios llegando asi a bloquearlos si estos son reicidentes (dejando de tener acceso a nuestra aplicación) 
 Posible mejora en cuanto a la funcionalidad de los usuarios, estos pudiendo editar su propio perfil asi modificando datos personales o bien que estos tengan acceso a un registro propio de elementos interactuados con la aplicación.
-Destacar una nueva sección de discusiones en tendencia, en la que destacaremos las discusiones las cuales han tenido una interaccion mayor en un mismo dia.
+Destacar una nueva sección de discusiones en tendencia, en la que destacaremos las cuales han tenido una interacción mayor en un mismo día.
  
-Tras un estudio de la posible mejor linea futura que puede tomar nuestra aplicación nos hemos decantado en mejorar la interaccion de esta mediante la seccion de "tendencias" las cuales para pertenecer a esta han de tener un mayor numero de actividades, dependiendo asi de factores como pueden ser:
-- mayor número de respuestas.
-- mayor número de comentarios.
-- mayor número de votos por dia.
+Tras un estudio de la posible mejor línea futura que puede tomar nuestra aplicación nos hemos decantado en mejorar la interacción de esta, mediante la sección de "tendencias" las cuales para pertenecer a esta han de tener un mayor número de actividades, dependiendo así de factores como pueden ser:
+- Mayor número de respuestas.
+- Mayor número de comentarios.
+- Mayor número de votos por día.
 	
-Los pasos que hemos de tomar para poder llevar a cabo esta linea futura son:
-- Un nuevo apartado en el home que permita el rapido acceso y visualizacion de la seccion al usuario
-- El apartado realizado para tener acceso a las discusiones en tendencia que tenga un diseño que anime al usuario a interactuar con esta nueva seccion 
+Los pasos que hemos de tomar para poder llevar a cabo esta línea futura son:
+- Un nuevo apartado en el home que permita el rápido acceso y visualización de la sección al usuario.
+- El apartado realizado para tener acceso a las discusiones en tendencia que tenga un diseño que anime al usuario a interactuar con esta nueva sección.
 
 ![Captura.PNG](imagenes/Captura.PNG)
 
@@ -294,3 +295,15 @@ Los pasos que hemos de tomar para poder llevar a cabo esta linea futura son:
 - Una vez dentro de cada discusion en tendencia resaltaremos al lado del titulo que se encuentra en tendencia y su posicion concretamente
 
 ![Captura3.PNG](imagenes/Captura3.PNG)
+
+### Patrón de diseño a aplicar en la línea futura
+
+Hemos pensado que un posible patron de diseño que podríamos llegar a aplicar durante el desarrollo de las tendencias de las discusiones es el Método plantilla.
+Este nos permitirá distinguir dos clases concretas de una clase abstractca `Discusiones` que serán: 
+  - `Discusion_Estandar` la cual utilizará y tendrá funcionalidades "principales" que debe de tener todas las páginas de nuestra aplicación, como pueden ser: añadir comentario , respuesta , etc ...
+  - `Discusion_Tendencia` la cual además de tener las funcionalidades principales de una discusion estandar tendrá unas propias de una discusion en tendencia, estas pueden ser: obtener ranking, obtener localidad , obtener numero de interacciones, obtener etiquetas, entre otras.
+Para tener una idea mas clara de como utilizariamos el patron de diseño este sería un diagrama simplificado:
+
+![image.PNG](imagenes/image.png)
+
+Como podemos ver además de la estructura de herencia tendremos una parte invariable independientemente de la discusion que es el pie de discusión, el cual, independientemente del tipo de discusión que sea se mantendrá de forma estática
