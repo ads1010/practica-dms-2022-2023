@@ -56,7 +56,7 @@ As some operations required in the authentication service require a user session
 
 ### Arquitectura
 
-Para el desarrollo del Backend sea ha implementado el princpio SOLID esto nos permite mantener la separación de las tareas y reducir en cierta medida el número de dependencias, esto se realiza mediante una arquitectura de 4 capas.
+Para el desarrollo del Backend se ha implementado el princpio SOLID esto nos permite mantener la separación de las tareas y reducir en cierta medida el número de dependencias, esto se realiza mediante una arquitectura de 4 capas.
 - Capa de datos
 - Capa logica
 - Capa de servicios
@@ -64,7 +64,7 @@ Para el desarrollo del Backend sea ha implementado el princpio SOLID esto nos pe
 
 El archivo `openapi/spec.yml` es el utilizado para realizar las llamadas al backend desde el frontend , este archivo especifica las diferentes rutas de acceso al backend mediante sus métodos get, post o put. Cuando se accede a alguna de estas rutas este realiza una llamada al método indicado en la capa de presentación, estas pueden ser mediante get, post o put, estas llamadas son capaces de recibir parámetros mediante un paquete json o bien insertados en la url.
 
-Los ficheros de la capa de presentación se encuentran ubicados en `components/dms2223backend/dms2223backend/presentation/rest/`, donde encontraremos los ficheros que corresponden a `discussion.py` `answer.py` `comment.py` `report.py` y dentro de estos se encuentran los métodos de la capa de presentación, estos son los responsables de llamar a la capa de servicio, después recoger sus datos y los transformarlos para finalmente poder ser utilizados por el frontend, esto requiere devolver los datos obtenidos por capa de servicios y/o el estado HTTP asociado (HTTPStatus.ok, HTTPStatus.BAD_REQUES, HTTPStatus.Forbidden).
+Los ficheros de la capa de presentación se encuentran ubicados en `components/dms2223backend/dms2223backend/presentation/rest/`, donde encontraremos los ficheros que corresponden a `discussion.py` `answer.py` `comment.py` `report.py` y dentro de estos se encuentran los métodos de la capa de presentación, estos son los responsables de llamar a la capa de servicio, después recoger sus datos y de transformarlos para finalmente poder ser utilizados por el frontend, esto requiere devolver los datos obtenidos por capa de servicios y/o el estado HTTP asociado (HTTPStatus.ok, HTTPStatus.BAD_REQUES, HTTPStatus.Forbidden).
 
 Los ficheros la capa de servicios se encuentran en `components/dms2223backend/dms2223backend/service/` donde encontraremos los ficheros que corresponden a `discussionservices.py` `answerservices.py` `commentservices.py` `moderatorservices.py`, en estos encontramos los diferentes métodos llamados por la capa de presentación y son los responsables de: establecer la sesión con la base de datos, también deben llamar a los métodos de la capa lógica y almacenar los resultados obtenidos en listas o diccionarios. Esto permitirá poder realizar las transformaciones necesarias de la capa de servicios a formato JSON de forma más cómoda para que estos ser utilizados finalmente por el frontend.
 
@@ -123,9 +123,12 @@ Finalmente, los ficheros de la capa de datos se encuentran en: `components/dms22
 `/comments/reports/{crid}`:
 -	put: Llama al metodo change_report, permite modificar el estado de una answer
 
+
+
+
 ## Principios SOLID
 Se cumple correctamente el principio SOLID de Single responsability ya que cada clase cumple con su funcion concreta encargandose de un objetivo especifico, como puede ser la separacion de la base de datos de el resto de funcionalidades.
 
-Cumple tambien con el principio SOLID Ope/Closed como podemos ver las distintas clases pueden extenderser con vista al futuro sin llegar a alterar su codigo.
+Cumple tambien con el principio SOLID Ope/Closed, como podemos ver las distintas clases pueden extenderse con vista al futuro sin llegar a alterar su codigo.
 
-El principio de Interface segregation tambien se cumpliría ya que los clientes no estarían en la necesidad de depender de metodos y datos que no utilizaría cumpliendo la granularidad.Para ello diferenciamos bien las funcionlidades de unos endpoints de otros.
+El principio de Interface segregation tambien se cumple ya que los clientes no estarían en la necesidad de depender de metodos y datos que no utilizaría cumpliendo la granularidad.Para ello hemos diferenciado bien las funcionlidades de unos endpoints de otros.
