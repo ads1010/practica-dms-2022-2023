@@ -16,7 +16,7 @@ class Reports():
     """ Class responsible of table-level reports operations.
     """
     @staticmethod
-    def create(session: Session, discussionid: int, reason: str, user: str) -> Report:
+    def create(session: Session, discussionid: int, reason: str) -> Report:
         """ Creates a new report record.
 
         Note:
@@ -38,7 +38,7 @@ class Reports():
             raise ValueError('A type report and a content hash are required.')
         try:
             estado = ReportStatus.PENDING
-            new_report = Report(discussionid, reason, estado, user=user)
+            new_report = Report(discussionid, reason, estado)
             session.add(new_report)
             session.commit()
             return new_report
@@ -48,7 +48,7 @@ class Reports():
                 ) from ex
 
     @staticmethod
-    def create_answer_report(session: Session, answerid: int, reason: str, user: str) -> Report:
+    def create_answer_report(session: Session, answerid: int, reason: str) -> Report:
         """ Creates a new report record.
 
         Note:
@@ -70,7 +70,7 @@ class Reports():
             raise ValueError('A type report and a content hash are required.')
         try:
             estado = ReportStatus.PENDING
-            new_report = Reportanswer(answerid, reason, estado, user=user)
+            new_report = Reportanswer(answerid, reason, estado)
             session.add(new_report)
             session.commit()
             return new_report
@@ -80,7 +80,7 @@ class Reports():
                 ) from ex
 
     @staticmethod
-    def create_comment_report(session: Session, commentid: int, reason: str, user: str) -> Report:
+    def create_comment_report(session: Session, commentid: int, reason: str) -> Report:
         """ Creates a new report record.
 
         Note:
@@ -102,7 +102,7 @@ class Reports():
             raise ValueError('A type report and a content hash are required.')
         try:
             estado = ReportStatus.PENDING
-            new_report = Reportcomment(commentid, reason, estado, user=user)
+            new_report = Reportcomment(commentid, reason, estado)
             session.add(new_report)
             session.commit()
             return new_report

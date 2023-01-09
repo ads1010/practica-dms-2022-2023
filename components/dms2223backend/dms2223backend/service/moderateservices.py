@@ -34,7 +34,7 @@ class reportsServices():
                 out['id'] = report.id
                 out['title'] = report.title      
                 out['content'] = report.content
-                out['user'] = report.user
+               # out['user'] = report.user
                 
         except Exception as ex:
             raise ex
@@ -61,8 +61,8 @@ class reportsServices():
                 'discussionid': report.discussionid,
                 'reason': report.reason,
                 'timestamp': report.timestamp,
-                'status': report.status.name,
-                'user': report.user
+                'status': report.status.name
+                #'user': report.user
             })
         schema.remove_session()
         return out
@@ -86,8 +86,8 @@ class reportsServices():
                 'answerid': report.answerid,
                 'reason': report.reason,
                 'timestamp': report.timestamp,
-                'status': report.status.name,
-                'user': report.user
+                'status': report.status.name
+                #'user': report.user
             })
         schema.remove_session()
         return out
@@ -111,8 +111,8 @@ class reportsServices():
                 'commentid': report.commentid,
                 'reason': report.reason,
                 'timestamp': report.timestamp,
-                'status': report.status.name,
-                'user': report.user
+                'status': report.status.name
+                #'user': report.user
             })
         schema.remove_session()
         return out
@@ -139,7 +139,7 @@ class reportsServices():
             out['timestamp'] = new_report.timestamp
             out['discussionid'] = new_report.discussionid#type: ignore
             out['status'] = new_report.status.name
-            out['user'] = new_report.user
+            #out['user'] = new_report.user
 
         except Exception as ex:
             raise ex
@@ -168,7 +168,7 @@ class reportsServices():
             out['tipo'] = new_report.tipo
             out['commentid'] = new_report.commentid#type: ignore
             out['status'] = new_report.status.name
-            out['user'] = new_report.user
+            #out['user'] = new_report.user
 
         except Exception as ex:
             raise ex
@@ -197,7 +197,7 @@ class reportsServices():
             out['tipo'] = new_report.tipo
             out['answerid'] = new_report.answerid#type: ignore
             out['status'] = new_report.status.name
-            out['user'] = new_report.user
+            #out['user'] = new_report.user
 
         except Exception as ex:
             raise ex

@@ -11,7 +11,7 @@ class Reportanswer(ResultBase):
     """ Definition and storage of report ORM records.
     """
 
-    def __init__(self, answerid:int, reason: str, status:ReportStatus, user: str):
+    def __init__(self, answerid:int, reason: str, status:ReportStatus):
         """ Constructor method.
 
         Initializes a report record.
@@ -26,7 +26,7 @@ class Reportanswer(ResultBase):
         self.answerid: int = answerid
         self.timestamp: DateTime
         self.status: ReportStatus = status
-        self.user: str = user
+        #self.user: str = user
 
     @staticmethod
     def _table_definition(metadata: MetaData) -> Table:
@@ -46,6 +46,6 @@ class Reportanswer(ResultBase):
             Column('reason', String(250), nullable=False),
             Column('answerid', Integer, ForeignKey('answers.id'), nullable=False),
             Column('status',Enum(ReportStatus),default = ReportStatus.PENDING ,nullable = False),
-            Column('timestamp', DateTime, nullable=False, default = func.now()),
-            Column('user', String(50), nullable=False)
+            Column('timestamp', DateTime, nullable=False, default = func.now())
+            #Column('user', String(50), nullable=False)
         )

@@ -25,8 +25,8 @@ Comments.comment(session, 1, 1, "Comentario 2 a respuesta 1", "Admin")
 Comments.comment(session, 1, 2, "Comentario 1 a respuesta 2", "Admin")
 Comments.comment(session, 2, 3, "Comentario 1 a discusion 2 respuesta 1", "Admin")
 
-Reports.create(session,1, "Este es un reporte a un titulo", "Admin")
-Reports.create_answer_report(session,1, "Este es un reporte a una respuesta", "Admin")
-Reports.create_comment_report(session,1,"reporte a comentario 1", "Admin")
+Reports.create(session,1, "Este es un reporte a un titulo")
+Reports.create_answer_report(session,1, "Este es un reporte a una respuesta")
+Reports.create_comment_report(session,1,"reporte a comentario 1")
 
 db.remove_session()
