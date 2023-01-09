@@ -14,7 +14,7 @@ class Answers():
     """ Class responsible of table-level answers operations.
     """
     @staticmethod
-    def answer(session: Session, discussionid: int, content: str) -> Answer:
+    def answer(session: Session, discussionid: int, content: str, user: str) -> Answer:
         """ Answers a discussion.
 
         Note:
@@ -35,7 +35,7 @@ class Answers():
         if not discussionid or not content:
             raise ValueError('An content and an Id hash are required.')
         try:
-            new_answer = Answer(discussionid, content)
+            new_answer = Answer(discussionid, content, user=user)
             session.add(new_answer)
             session.commit()
             return new_answer

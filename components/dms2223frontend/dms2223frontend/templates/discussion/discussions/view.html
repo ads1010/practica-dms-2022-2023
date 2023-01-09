@@ -7,6 +7,7 @@
     
     <dl>
         <h3><dt>{{ discussion['title'] }}</dt></h3><p>Fecha y hora de la discusión: {{ discussion['timestamp']}}</p>
+        <p>Usuario: {{ discussion['user']}}</p>
         <textarea name="content" rows="10" cols="100"> {{ discussion['content'] }} </textarea>
 
         <p class="alignleft">
@@ -21,6 +22,7 @@
             {%if discussion['answered'] == 1 %}
                 {% for answer in answers %}
                     <h3><dt>Respuesta</dt></h3><p>Fecha y hora de la respuesta: {{ answer['timestamp']}}</p>
+                    <p>Usuario: {{ answer['user']}}</p>
                     <textarea name="content" rows="10" cols="100" readonly> {{ answer['content'] }} </textarea>
                     
 
@@ -46,6 +48,7 @@
                     {%for comment in comments%}
                         {%if answer['id'] == comment['answerid']%}
                             <h3><dt>Comentario</dt></h3><p>Fecha y hora del comentario: {{ comment['timestamp']}}</p>
+                            <p>Usuario: {{ comment['user']}}</p>
                             <textarea name="content" rows="10" cols="100" readonly>{{ comment['content'] }}</textarea>
                             <p class="alignleft">
 

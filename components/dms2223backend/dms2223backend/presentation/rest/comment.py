@@ -8,7 +8,7 @@ from dms2223backend.data.db.exc import DiscussionNotFoundError
 from dms2223backend.logic.exc.operationerror import OperationError
 from dms2223backend.service import CommentsServices
 
-def comment(body: Dict, id: int) -> Tuple[Union[Dict, str], Optional[int]]:
+def comment(body: Dict, id: int, token_info: dict) -> Tuple[Union[Dict, str], Optional[int]]:
     """Comments a discussion if the requestor has the discussion role.
 
     Args:
@@ -23,9 +23,10 @@ def comment(body: Dict, id: int) -> Tuple[Union[Dict, str], Optional[int]]:
             - 409 CONFLICT if an existing user already has all or part of the unique user's data.
     """
     with current_app.app_context():
+        user = token_info['user_token']['username']
         try:
             comment = CommentsServices.comment(
-                body['discussionid'], id, body['content'], current_app.db
+                body['discussionid'], id, body['content'], user, current_app.db
             )
         except ValueError:
             return ('A mandatory argument is missing', HTTPStatus.BAD_REQUEST.value)

@@ -1017,7 +1017,7 @@ components:
           properties:
             contentSS:
               type: string
-            owner:
+            user:
               $ref: '#/components/schemas/UserCoreModel'
             timestamp:
               type: number
@@ -1025,6 +1025,7 @@ components:
             - title
             - content
             - timestamp
+            - user
 
     QuestionCreationModel:
       type: object
@@ -1063,8 +1064,8 @@ components:
           type: string
         timestamp:
           type: number
-        # owner:
-        #   $ref: '#/components/schemas/UserCoreModel'
+        user:
+          $ref: '#/components/schemas/UserCoreModel'
         # votes:
         #   type: integer
         #   minimum: 0
@@ -1085,7 +1086,7 @@ components:
         #- timestamp
         - content
         - timestamp
-        #- owner
+        - user
     AnswerCreationModel:
       type: object
       properties:
@@ -1125,8 +1126,8 @@ components:
         #     - POSITIVE
         #     - NEUTRAL
         #     - NEGATIVE
-        # owner:
-        #   $ref: '#/components/schemas/UserCoreModel'
+        user:
+          $ref: '#/components/schemas/UserCoreModel'
         # votes:
         #   type: integer
         #   minimum: 0
@@ -1174,6 +1175,7 @@ components:
         # - id
         # - aid
         - timestamp
+        - user
         # - content
         # - sentiment
         # - owner
@@ -1220,7 +1222,7 @@ components:
             - PENDING
             - ACCEPTED
             - REJECTED
-        owner:
+        user:
           $ref: '#/components/schemas/UserCoreModel'
         timestamp:
           type: number

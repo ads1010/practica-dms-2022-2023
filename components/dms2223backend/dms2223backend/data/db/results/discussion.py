@@ -13,7 +13,7 @@ class Discussion(ResultBase):
     """ Definition and storage of discussion ORM records.
     """
 
-    def __init__(self, title: str, content: str):
+    def __init__(self, title: str, content: str, user: str):
         """ Constructor method.
 
         Initializes a discussion record.
@@ -27,6 +27,7 @@ class Discussion(ResultBase):
         self.title: str = title
         self.content: str = content
         self.timestamp: DateTime
+        self.user: str = user
 
     @staticmethod
     def _table_definition(metadata: MetaData) -> Table:
@@ -45,10 +46,8 @@ class Discussion(ResultBase):
             Column('id', Integer, autoincrement='auto', primary_key=True),
             Column('title', String(50), nullable=False),
             Column('content', String(250), nullable=False),
-            Column('timestamp', DateTime, nullable=False, default = func.now())
-            #Column('time', TIME, nullable = False),
-            #Column('user', String(15), nullable=False),
-            #Column('date', DATE, nullable = False)
+            Column('timestamp', DateTime, nullable=False, default = func.now()),
+            Column('user', String(50), nullable=False),
         )
 
     @staticmethod

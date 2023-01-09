@@ -11,7 +11,7 @@ class Comments():
     """ Class responsible of table-level comments operations.
     """
     @staticmethod
-    def comment(session: Session, discussionid: int, answerid: int, content: str) -> Comment:
+    def comment(session: Session, discussionid: int, answerid: int, content: str, user: str) -> Comment:
         """ Comment a comment.
 
         Note:
@@ -32,7 +32,7 @@ class Comments():
         if not answerid or not content or not discussionid:
             raise ValueError('An content and an Id hash are required.')
         try:
-            new_comment = Comment(discussionid, answerid, content)
+            new_comment = Comment(discussionid, answerid, content, user=user)
             session.add(new_comment)
             session.commit()
             return new_comment

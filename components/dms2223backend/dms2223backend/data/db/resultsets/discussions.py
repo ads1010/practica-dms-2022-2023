@@ -14,7 +14,7 @@ class Discussions():
     """ Class responsible of table-level discussions operations.
     """
     @staticmethod
-    def create(session: Session, title: str, content: str) -> Discussion:
+    def create(session: Session, title: str, content: str, user: str) -> Discussion:
         """ Creates a new discussion record.
 
         Note:
@@ -35,7 +35,7 @@ class Discussions():
         if not title or not content:
             raise ValueError('A title and a content hash are required.')
         try:
-            new_discussion = Discussion(title, content)
+            new_discussion = Discussion(title, content, user=user)
             session.add(new_discussion)
             session.commit()
             return new_discussion

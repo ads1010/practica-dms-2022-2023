@@ -10,7 +10,7 @@ from dms2223backend.service import AnswersServices
 
 
 
-def answer(body: Dict, id: int) -> Tuple[Union[Dict, str], Optional[int]]:
+def answer(body: Dict, id: int, token_info: dict) -> Tuple[Union[Dict, str], Optional[int]]:
     """Answers a discussion if the requestor has the discussion role.
 
     Args:
@@ -25,9 +25,10 @@ def answer(body: Dict, id: int) -> Tuple[Union[Dict, str], Optional[int]]:
             - 409 CONFLICT if an existing user already has all or part of the unique user's data.
     """
     with current_app.app_context():
+        user = token_info['user_token']['username']
         try:
             answer = AnswersServices.answer(
-                id, body['content'], current_app.db
+                id, body['content'], user,current_app.db
             )
         except ValueError:
             return ('A mandatory argument is missing', HTTPStatus.BAD_REQUEST.value)
